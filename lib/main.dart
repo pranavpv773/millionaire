@@ -7,7 +7,8 @@ import 'utils/apppref.dart';
 import 'utils/routes/app_pages.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() async {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await AppPref.init();
   runApp(const MyApp());
 }
@@ -24,11 +25,14 @@ class MyApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        initialRoute: '/',
+        supportedLocales: [
+          Locale('en', 'US'),
+        ],
         title: 'Millionaire',
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.system,
         onGenerateRoute: RouteGenerator.generateRoute,
+        // home: LoginScreen(),
       ),
     );
   }

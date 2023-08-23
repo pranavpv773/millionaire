@@ -1,10 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:millionaire_app/controller/cubit/onboarding/cubit/onboarding_cubit.dart';
 import 'package:millionaire_app/utils/colors.dart';
-
-import '../../utils/routes/app_routes.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  OnboardingCubit get cubit => BlocProvider.of<OnboardingCubit>(context);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -60,12 +60,12 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = BlocProvider.of<OnboardingCubit>(context);
     return SizedBox(
       height: 60,
-      width: 160,
       child: TextButton(
         onPressed: () {
-          Get.toNamed(AppRoutes.landingScreen);
+          cubit.onboardTheUser(context);
         },
         child: Ink(
           decoration: BoxDecoration(
@@ -92,33 +92,37 @@ class VerificationFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: Colors.grey[100]!,
+    return BlocBuilder<OnboardingCubit, OnboardingState>(
+        builder: (context, state) {
+      return Column(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.grey[100]!,
+                ),
+              ),
+            ),
+            child: TextFormField(
+              controller: state.emailController,
+              cursorColor: Colors.black,
+              style: const TextStyle(color: Colors.black),
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                hintText: "Email",
+                hintStyle: TextStyle(color: Colors.grey[400]),
               ),
             ),
           ),
-          child: TextFormField(
-            cursorColor: Colors.black,
-            style: const TextStyle(color: Colors.black),
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              hintText: "Email",
-              hintStyle: TextStyle(color: Colors.grey[400]),
-            ),
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(8.0),
-          child: const PasswordField(),
-        )
-      ],
-    );
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            child: const PasswordField(),
+          )
+        ],
+      );
+    });
   }
 }
 
@@ -142,20 +146,24 @@ class _PasswordFieldState extends State<PasswordField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      obscureText: _ishidden ? true : false,
-      style: const TextStyle(color: Color.fromRGBO(143, 148, 251, 1)),
-      decoration: InputDecoration(
-        suffixIcon: IconButton(
-          icon: Icon(_ishidden ? Icons.visibility_off : Icons.visibility),
-          onPressed: _toggleVisibility,
+    return BlocBuilder<OnboardingCubit, OnboardingState>(
+        builder: (context, state) {
+      return TextFormField(
+        controller: state.passwordController,
+        obscureText: _ishidden ? true : false,
+        style: const TextStyle(color: Colors.black),
+        decoration: InputDecoration(
+          suffixIcon: IconButton(
+            icon: Icon(_ishidden ? Icons.visibility_off : Icons.visibility),
+            onPressed: _toggleVisibility,
+          ),
+          border: const OutlineInputBorder(),
+          hintText: "Password",
+          hintStyle: TextStyle(
+            color: Colors.grey[400],
+          ),
         ),
-        border: const OutlineInputBorder(),
-        hintText: "Password",
-        hintStyle: TextStyle(
-          color: Colors.grey[400],
-        ),
-      ),
-    );
+      );
+    });
   }
 }

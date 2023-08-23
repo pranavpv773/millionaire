@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:millionaire_app/utils/apppref.dart';
 import 'package:millionaire_app/utils/routes/app_routes.dart';
-import 'package:millionaire_app/view/home/home_screen.dart';
+import 'package:millionaire_app/view/global_screen/global_screen.dart';
 import 'package:millionaire_app/view/onboarding/login_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -9,9 +10,11 @@ class RouteGenerator {
     final url = settings.name;
     switch (url) {
       case "/":
-        return pagetransition(settings, const LoginScreen());
+        return AppPref.userToken != ''
+            ? pagetransition(settings, const Landing())
+            : pagetransition(settings, const LoginScreen());
       case AppRoutes.landingScreen:
-        return pagetransition(settings, const HomeScreen());
+        return pagetransition(settings, const Landing());
 
       default:
         return pagetransition(
