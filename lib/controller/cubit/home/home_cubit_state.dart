@@ -9,29 +9,45 @@ enum BannerStatus {
   error,
 }
 
+enum UrlStatus {
+  initial,
+  loading,
+  loaded,
+  error,
+}
+
 class HomeState extends Equatable {
   final List<Datum> banners;
   final BannerStatus bannerStatus;
-
+  final UrlStatus urlStatus;
+  final String liveUrl;
   const HomeState({
     required this.banners,
     required this.bannerStatus,
+    required this.liveUrl,
+    required this.urlStatus,
   });
 
   factory HomeState.initial() {
     return const HomeState(
       banners: [],
       bannerStatus: BannerStatus.initial,
+      liveUrl: '',
+      urlStatus: UrlStatus.initial,
     );
   }
 
   HomeState copyWith({
     List<Datum>? banners,
-    final BannerStatus? bannerStatus,
+    BannerStatus? bannerStatus,
+    UrlStatus? urlStatus,
+    String? liveUrl,
   }) {
     return HomeState(
       banners: banners ?? this.banners,
       bannerStatus: bannerStatus ?? this.bannerStatus,
+      liveUrl: liveUrl ?? this.liveUrl,
+      urlStatus: urlStatus ?? this.urlStatus,
     );
   }
 
@@ -40,6 +56,8 @@ class HomeState extends Equatable {
     return [
       banners,
       bannerStatus,
+      urlStatus,
+      liveUrl,
     ];
   }
 }

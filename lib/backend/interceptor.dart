@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:developer';
 import 'package:dio/dio.dart';
 
@@ -16,6 +18,7 @@ class ApiInterceptor extends Interceptor {
   void onError(DioError err, ErrorInterceptorHandler handler) {
     log("❌🌍❌ Error [${err.response?.statusCode}] => ${err.requestOptions.path} | Details: ${err.response?.data}");
 
+    // ignore: unused_local_variable
     final isInvalidUser = err.response?.statusCode == 401 &&
         err.response?.data['error'].toString().toLowerCase() == "invalid user";
 
