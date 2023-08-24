@@ -85,7 +85,6 @@ class LoadingOverlayDark {
 class _FullScreenLoaderDark extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print('Dark loader');
     return WillPopScope(
       onWillPop: () async => true,
       child: Stack(

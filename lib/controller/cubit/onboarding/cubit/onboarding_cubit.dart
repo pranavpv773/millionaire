@@ -32,9 +32,7 @@ class OnboardingCubit extends Cubit<OnboardingState> with Endpoints {
           onboardingData: userOnboard.data,
         ),
       );
-      print("success ${state.onboardingData.accessToken}");
       AppPref.userToken = state.onboardingData.accessToken.toString();
-      print("AppPref.userToken : ${AppPref.userToken}");
       LoadingOverlay.of(context).hide();
       Get.offAllNamed(AppRoutes.landingScreen);
       // ignore: deprecated_member_use

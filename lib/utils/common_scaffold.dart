@@ -65,3 +65,34 @@ class _CommonScaffoldState extends State<CommonScaffold> {
     );
   }
 }
+
+class CommonScaffoldWithAppbar extends StatefulWidget {
+  final Widget child;
+  final String header;
+  const CommonScaffoldWithAppbar({
+    super.key,
+    required this.header,
+    required this.child,
+  });
+
+  @override
+  State<CommonScaffoldWithAppbar> createState() =>
+      _CommonScaffoldWithAppbarState();
+}
+
+class _CommonScaffoldWithAppbarState extends State<CommonScaffoldWithAppbar> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leadingWidth: 32,
+        title: Text(widget.header),
+        backgroundColor: AppColors.primary,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: widget.child,
+      ),
+    );
+  }
+}

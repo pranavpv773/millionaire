@@ -6,15 +6,16 @@ import 'package:millionaire_app/utils/colors.dart';
 import 'package:millionaire_app/utils/common_scaffold.dart';
 import 'package:millionaire_app/utils/dialogs.dart';
 import 'package:millionaire_app/utils/helpers.dart';
+import 'package:millionaire_app/utils/routes/app_routes.dart';
 import 'package:millionaire_app/utils/size.dart';
 
 class MoreScreen extends StatelessWidget {
   MoreScreen({super.key});
   final List moreOption = [
-    'Tickets',
+    'My Tickets',
     'How to use',
     'Terms & Conditions',
-    'Privacy policy',
+    'Privacy Policy',
     'Logout'
   ];
   final List moreOptionIcons = [
@@ -34,36 +35,49 @@ class MoreScreen extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: 5,
-          separatorBuilder: (context, index) => const SizeBoxH(h8),
+          separatorBuilder: (context, index) => const SizeBoxH(16),
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.grey.withOpacity(0.2)),
-                    borderRadius: BorderRadius.circular(4),
-                    color: AppColors.white),
-                child: ListTile(
-                  minLeadingWidth: context.width * 0.02,
-                  leading: Icon(
-                    moreOptionIcons[index],
-                    size: 24,
-                    color: index == 4
-                        ? Colors.red.withOpacity(0.7)
-                        : AppColors.primary.withOpacity(0.7),
+              child: Material(
+                elevation: 4,
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  decoration: BoxDecoration(
+                      border:
+                          Border.all(color: AppColors.grey.withOpacity(0.2)),
+                      borderRadius: BorderRadius.circular(8),
+                      color: AppColors.white),
+                  child: ListTile(
+                    minLeadingWidth: context.width * 0.02,
+                    leading: Icon(
+                      moreOptionIcons[index],
+                      size: 24,
+                      color: index == 4
+                          ? Colors.red.withOpacity(0.7)
+                          : AppColors.primary.withOpacity(0.7),
+                    ),
+                    title: Text(
+                      moreOption[index],
+                      style: context.textTheme.titleMedium!
+                          .copyWith(color: AppColors.grey, fontSize: 16),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: 24,
+                      color: AppColors.secondary.withOpacity(0.7),
+                    ),
+                    onTap: () {
+                      if (index == 0) {
+                        Get.toNamed(AppRoutes.ticketScreen);
+                      } else if (index == 4) {
+                        commonBottomSheetDialog(context, 0.30, 0.30, 0.30,
+                            const LogoutDialogChild());
+                      } else if (index == 1) {
+                        Get.toNamed(AppRoutes.howtoUseScreen);
+                      }
+                    },
                   ),
-                  title: Text(moreOption[index]),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios_rounded,
-                    size: 24,
-                    color: AppColors.secondary.withOpacity(0.7),
-                  ),
-                  onTap: () {
-                    if (index == 4) {
-                      commonBottomSheetDialog(
-                          context, 0.22, 0.22, 0.22, const LogoutDialogChild());
-                    }
-                  },
                 ),
               ),
             );
@@ -116,7 +130,6 @@ class LogoutDialogChild extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 50, vertical: 2),
                     onPressed: () {
-                      print("object");
                       Navigator.pop(context);
                     },
                     child: Text(

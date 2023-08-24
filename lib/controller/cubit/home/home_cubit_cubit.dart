@@ -18,11 +18,24 @@ class HomeCubit extends Cubit<HomeState> with Endpoints {
       emit(
         state.copyWith(bannerStatus: BannerStatus.loaded, banners: list.data),
       );
-      print("success ${state.banners}");
       // ignore: deprecated_member_use
     } on DioError catch (_) {
       emit(state.copyWith(
         bannerStatus: BannerStatus.error,
+      ));
+    }
+  }
+
+  getUrl() async {
+    emit(state.copyWith(urlStatus: UrlStatus.loading));
+    try {
+      final list = await services.getUrl();
+      emit(state.copyWith(
+          urlStatus: UrlStatus.loaded, liveUrl: list.data!.liveUrl.toString()));
+      // ignore: deprecated_member_use
+    } on DioError catch (_) {
+      emit(state.copyWith(
+        urlStatus: UrlStatus.error,
       ));
     }
   }

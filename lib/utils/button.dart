@@ -35,8 +35,6 @@ class CommonButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.dark;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: hor!),
       child: context.width > 650

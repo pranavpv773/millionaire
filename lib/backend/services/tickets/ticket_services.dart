@@ -1,14 +1,16 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:millionaire_app/backend/api_urls.dart';
-import 'package:millionaire_app/backend/model/draws/past_draws.dart';
+import 'package:millionaire_app/backend/model/tickets/my_tickets.dart';
 import 'package:millionaire_app/utils/apppref.dart';
 
-class DrawServices extends Endpoints {
-  Future<PastDrawModel> getPastDrawsList() async {
+class TicketServices extends Endpoints {
+  Future<MyTicketModel> myTicketApiService() async {
+    log(AppPref.userToken);
     try {
       final response = await dio.get(
-        pastDrawList,
+        myTickets,
         options: Options(
           headers: {
             'Content-Type': 'application/json',
@@ -16,7 +18,7 @@ class DrawServices extends Endpoints {
           },
         ),
       );
-      final body = pastDrawModelFromMap(jsonEncode(response.data));
+      final body = myTicketModelFromMap(jsonEncode(response.data));
       return body;
     } catch (e) {
       rethrow;

@@ -20,6 +20,9 @@ class Endpoints {
   final onboardUser = "$baseurl/auth/login";
   /* HOME */
   final bannerlist = "$baseurl/banner";
+  final getLiveUrl = "$baseurl/live-url/";
   /* DRAWS */
   final pastDrawList = "$baseurl/past-draws";
+  /* MY TICKETS */
+  final myTickets = "$baseurl/tickets";
 }
