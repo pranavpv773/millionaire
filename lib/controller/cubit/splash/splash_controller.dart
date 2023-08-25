@@ -39,10 +39,7 @@ class SplashController extends GetxController {
       }
       return false;
     } on SocketException catch (_) {
-      log('not connected');
-
       update();
-
       return false;
     }
   }

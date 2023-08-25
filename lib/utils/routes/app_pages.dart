@@ -37,7 +37,7 @@ class RouteGenerator {
       default:
         return pagetransition(
           settings,
-          const LoginScreen(),
+          const SplashScreen(),
         );
     }
   }

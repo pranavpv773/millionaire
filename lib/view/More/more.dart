@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:millionaire_app/controller/cubit/draws/draws_cubit.dart';
 import 'package:millionaire_app/controller/cubit/global_screen/global_screen_cubit.dart';
 import 'package:millionaire_app/controller/cubit/home/home_cubit_cubit.dart';
+import 'package:millionaire_app/controller/cubit/my_tickets/ticket_cubit.dart';
+import 'package:millionaire_app/controller/cubit/onboarding/cubit/onboarding_cubit.dart';
 import 'package:millionaire_app/utils/apppref.dart';
 import 'package:millionaire_app/utils/button.dart';
 import 'package:millionaire_app/utils/colors.dart';
@@ -14,14 +18,14 @@ import 'package:millionaire_app/utils/size.dart';
 class MoreScreen extends StatelessWidget {
   MoreScreen({super.key});
   final List moreOption = [
-    'My Wallet',
-    'How to use',
+    // 'My Wallet',
+    'How to play',
     'Terms & Conditions',
     'Privacy Policy',
     'Logout'
   ];
   final List moreOptionIcons = [
-    Icons.wallet_rounded,
+    // Icons.wallet_rounded,
     Icons.info_rounded,
     Icons.assignment_rounded,
     Icons.privacy_tip_rounded,
@@ -36,7 +40,7 @@ class MoreScreen extends StatelessWidget {
         ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: 5,
+          itemCount: moreOption.length,
           separatorBuilder: (context, index) => const SizeBoxH(16),
           itemBuilder: (context, index) {
             return Padding(
@@ -71,13 +75,14 @@ class MoreScreen extends StatelessWidget {
                     ),
                     onTap: () {
                       if (index == 0) {
-                        Get.toNamed(AppRoutes.walletScreen);
-                      } else if (index == 4) {
+                        Get.toNamed(AppRoutes.howtoUseScreen);
+                      } else if (index == 2) {
                         commonBottomSheetDialog(context, 0.30, 0.30, 0.30,
                             const LogoutDialogChild());
-                      } else if (index == 1) {
-                        Get.toNamed(AppRoutes.howtoUseScreen);
                       }
+                      // else if (index == 1) {
+                      //   Get.toNamed(AppRoutes.howtoUseScreen);
+                      // }
                     },
                   ),
                 ),
@@ -117,9 +122,12 @@ class LogoutDialogChild extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 2),
                 onPressed: () {
                   AppPref.userToken = '';
-                  Get.offAllNamed('/');
-                  BottomNavState.initial();
-                  HomeState.initial();
+                  Get.offAllNamed(AppRoutes.loginOrHome);
+                  context.read<BottomNavCubit>().clearState();
+                  context.read<HomeCubit>().clearState();
+                  context.read<DrawsCubit>().clearState();
+                  context.read<TicketCubit>().clearState();
+                  context.read<OnboardingCubit>().clearState();
                 },
                 child: Text(
                   'Yes',

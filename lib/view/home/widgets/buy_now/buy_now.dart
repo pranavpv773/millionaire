@@ -89,7 +89,7 @@ class _BuyNowScreenState extends State<BuyNowScreen> {
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: AppColors.grey),
+                      color: AppColors.primary),
                   child: Center(
                     child: Text(
                       "Each Green Certificate has a unique code which is your entry for the Raffle Draw and the Grand Prize Match 7 Numbers Draw. ",
@@ -110,9 +110,15 @@ class _BuyNowScreenState extends State<BuyNowScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      "asset/coin.png",
-                      width: context.width / 20,
+                    SizedBox(
+                      height: 25,
+                      width: 25,
+                      child: Center(
+                        child: Image.asset(
+                          "asset/coin.png",
+                          width: context.width / 20,
+                        ),
+                      ),
                     ),
                     Text(
                       " 20 Per Green Certificate",
@@ -123,7 +129,7 @@ class _BuyNowScreenState extends State<BuyNowScreen> {
                 const SizeBoxH(h10),
                 SizedBox(
                   width: context.width,
-                  height: 40,
+                  height: 46,
                   child: ElevatedButton(
                     onPressed: () {
                       commonBottomSheetDialog(
@@ -140,14 +146,21 @@ class _BuyNowScreenState extends State<BuyNowScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      backgroundColor: AppColors.primary.withOpacity(0.7),
+                      backgroundColor: AppColors.secondary.withOpacity(0.7),
                       elevation: 12.0,
                     ),
-                    child: Text(
-                      'BUY NOW',
-                      style: context.textTheme.titleMedium!.copyWith(
-                        color: AppColors.white,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const SizedBox(),
+                        Text(
+                          'BUY NOW',
+                          style: context.textTheme.labelLarge!.copyWith(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Icon(Icons.arrow_forward_ios_rounded)
+                      ],
                     ),
                   ),
                 ),
@@ -296,7 +309,7 @@ class CommonButtonNew extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: context.width,
-      height: 40,
+      height: 46,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(

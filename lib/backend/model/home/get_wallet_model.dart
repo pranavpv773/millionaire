@@ -6,7 +6,7 @@ GetWalletModel getWalletModelFromMap(String str) =>
 String getWalletModelToMap(GetWalletModel data) => json.encode(data.toMap());
 
 class GetWalletModel {
-  int? statusCode;
+  dynamic statusCode;
   WalletData? data;
   String? message;
   bool? status;
@@ -41,8 +41,8 @@ class WalletData {
   bool? status;
   String? createdAt;
   String? updatedAt;
-  int? v;
-  int? worth;
+  dynamic v;
+  dynamic worth;
 
   WalletData({
     this.id,

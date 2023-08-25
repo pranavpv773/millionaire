@@ -113,12 +113,11 @@ class _LandingState extends State<Landing> {
               stateManagement: true,
               hideNavigationBarWhenKeyboardShows: true,
               decoration: NavBarDecoration(
-                border: Border.all(color: Colors.grey.withOpacity(0.1)),
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20)),
+                border: Border.all(color: Colors.transparent.withOpacity(0.1)),
+                // borderRadius: const BorderRadius.only(
+                //     topLeft: Radius.circular(0), topRight: Radius.circular(0)),
                 boxShadow: [
-                  const BoxShadow(color: Colors.black),
+                  const BoxShadow(color: Colors.transparent),
                 ],
               ),
               popAllScreensOnTapOfSelectedTab: true,

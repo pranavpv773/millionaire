@@ -36,128 +36,138 @@ class _HomeScreenState extends State<HomeScreen> {
     return CommonScaffold(
       //   backgroundColor: AppColors.bgColor,
       child: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-        return Column(
-          children: AnimationConfiguration.toStaggeredList(
-            duration: const Duration(milliseconds: 375),
-            childAnimationBuilder: (widget) => SlideAnimation(
-              horizontalOffset: 50.0,
-              child: FadeInAnimation(
-                child: widget,
-              ),
-            ),
-            children: [
-              //const SizeBoxH(32),
-              state.bannerStatus == BannerStatus.loading
-                  ? const ShimmerBanner()
-                  : state.bannerStatus == BannerStatus.error
-                      ? Text(
-                          "something went wrong",
-                          style: context.textTheme.bodySmall,
-                        )
-                      : CarouselSlider(
-                          options: CarouselOptions(
-                            autoPlay: true,
-                            // enlargeCenterPage: true,
-                            aspectRatio: 16 / 9,
-                            autoPlayCurve: Curves.fastOutSlowIn,
-                            enableInfiniteScroll: true,
-                            autoPlayAnimationDuration:
-                                const Duration(milliseconds: 800),
-                            viewportFraction: 1,
-                          ),
-                          items: state.banners.map((i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return Container(
-                                  width: context.width,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(0),
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                          "http://3.6.123.80:3001/uploads/${i.image.toString()}",
-                                        ),
-                                        fit: BoxFit.fill),
-                                  ),
-                                );
-                              },
-                            );
-                          }).toList(),
-                        ),
-              const CommonShadowContainer(child: OwpmWidget()),
-              CommonShadowContainer(
-                child: Column(
-                  children: [
-                    Container(
-                      width: context.width,
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: AppColors.secondary),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Grand Prize",
-                              style: context.textTheme.bodyMedium!.copyWith(
-                                color: AppColors.white,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: h8,
-                            ),
-                            Text(
-                              "AED 83,000,000",
-                              style: context.textTheme.bodyLarge!.copyWith(
-                                color: AppColors.white,
-                              ),
-                            ),
-                          ]),
-                    ),
-                    const SizeBoxH(h20),
-                    Container(
-                      height: 600,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                            "asset/logos/green certificate1.jpeg",
-                          ),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    const SizeBoxH(h20),
-                    SizedBox(
-                      width: context.width,
-                      height: 40,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.toNamed(AppRoutes.buynowScreen);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shadowColor: AppColors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          backgroundColor: AppColors.primary.withOpacity(0.7),
-                          elevation: 4.0,
-                        ),
-                        child: Text(
-                          'BUY NOW',
-                          style: context.textTheme.titleMedium!.copyWith(
-                            color: AppColors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+        return GetBuilder<HomeController>(builder: (_) {
+          return Column(
+            children: AnimationConfiguration.toStaggeredList(
+              duration: const Duration(milliseconds: 375),
+              childAnimationBuilder: (widget) => SlideAnimation(
+                horizontalOffset: 50.0,
+                child: FadeInAnimation(
+                  child: widget,
                 ),
               ),
-              const SizeBoxH(h32)
-            ],
-          ),
-        );
+              children: [
+                //const SizeBoxH(32),
+                state.bannerStatus == BannerStatus.loading
+                    ? const ShimmerBanner()
+                    : state.bannerStatus == BannerStatus.error
+                        ? Text(
+                            "something went wrong",
+                            style: context.textTheme.bodySmall,
+                          )
+                        : CarouselSlider(
+                            options: CarouselOptions(
+                              autoPlay: true,
+                              // enlargeCenterPage: true,
+                              aspectRatio: 16 / 9,
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              enableInfiniteScroll: true,
+                              autoPlayAnimationDuration:
+                                  const Duration(milliseconds: 800),
+                              viewportFraction: 1,
+                            ),
+                            items: state.banners.map((i) {
+                              return Builder(
+                                builder: (BuildContext context) {
+                                  return Container(
+                                    width: context.width,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(0),
+                                      image: DecorationImage(
+                                          image: NetworkImage(
+                                            "http://3.6.123.80:3001/uploads/${i.image.toString()}",
+                                          ),
+                                          fit: BoxFit.fill),
+                                    ),
+                                  );
+                                },
+                              );
+                            }).toList(),
+                          ),
+                const CommonShadowContainer(child: OwpmWidget()),
+                CommonShadowContainer(
+                  child: Column(
+                    children: [
+                      Container(
+                        width: context.width,
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: AppColors.primary),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Grand Prize",
+                                style: context.textTheme.bodyMedium!.copyWith(
+                                  color: AppColors.white,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: h8,
+                              ),
+                              Text(
+                                "AED 83,000,000",
+                                style: context.textTheme.bodyLarge!.copyWith(
+                                  color: AppColors.white,
+                                ),
+                              ),
+                            ]),
+                      ),
+                      const SizeBoxH(h20),
+                      Container(
+                        height: 600,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: const DecorationImage(
+                            image: AssetImage(
+                              "asset/logos/green certificate1.jpeg",
+                            ),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      const SizeBoxH(h20),
+                      SizedBox(
+                        width: context.width,
+                        height: 46,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Get.toNamed(AppRoutes.buynowScreen);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shadowColor: AppColors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            backgroundColor:
+                                AppColors.secondary.withOpacity(0.7),
+                            elevation: 4.0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(),
+                              Text(
+                                'BUY NOW',
+                                style: context.textTheme.titleMedium!.copyWith(
+                                  color: AppColors.white,
+                                ),
+                              ),
+                              const Icon(Icons.arrow_forward_ios_rounded)
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizeBoxH(h32)
+              ],
+            ),
+          );
+        });
       }),
     );
   }
@@ -165,18 +175,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class CommonShadowContainer extends StatelessWidget {
   final Widget child;
-  const CommonShadowContainer({super.key, required this.child});
+  final double? padding;
+  const CommonShadowContainer({super.key, required this.child, this.padding});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(padding ?? 16.0),
       child: Material(
         elevation: 12,
         borderRadius: BorderRadius.circular(10),
         shadowColor: AppColors.black,
         child: Container(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
           child: child,
         ),
@@ -193,26 +204,29 @@ class OwpmWidget extends StatelessWidget {
     final HomeController controller = Get.put(HomeController());
 
     return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 0.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          FittedBox(
+            child: Container(
               width: context.width,
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: AppColors.secondary),
+                  color: AppColors.primary),
               child: Center(
                 child: Row(
                   children: [
                     Text(
                       "Join The Draw Every Sunday At 8PM (UAE) ",
-                      style: context.textTheme.titleMedium!.copyWith(
-                          color: AppColors.black, fontWeight: FontWeight.w400),
+                      style: context.textTheme.labelMedium!.copyWith(
+                          fontSize: 14,
+                          overflow: TextOverflow.ellipsis,
+                          color: AppColors.white,
+                          fontWeight: FontWeight.w500),
                     ),
+                    const SizeBoxV(h4),
                     Image.asset(
                       'asset/flag.jpeg',
                       width: 18,
@@ -221,60 +235,64 @@ class OwpmWidget extends StatelessWidget {
                 ),
               ),
             ),
-            const SizeBoxH(h20),
-            Obx(
-              () => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TimeCountWidget(
-                      count: "${controller.days.value}", text: 'DAYS'),
-                  // SizeBoxV(h8),
-                  TimeCountWidget(
-                      count: "${controller.hours.value}", text: 'HOURS'),
-                  // SizeBoxV(h8),
-                  TimeCountWidget(
-                      count: "${controller.minutes.value}", text: 'MIN'),
-                  // SizeBoxV(h8),
-                  TimeCountWidget(
-                      count: "${controller.seconds.value}", text: 'SEC'),
-                ],
-              ),
+          ),
+          const SizeBoxH(h32),
+          Obx(
+            () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TimeCountWidget(
+                    count: "${controller.days.value}", text: 'DAYS'),
+                // SizeBoxV(h8),
+                TimeCountWidget(
+                    count: "${controller.hours.value}", text: 'HOURS'),
+                // SizeBoxV(h8),
+                TimeCountWidget(
+                    count: "${controller.minutes.value}", text: 'MIN'),
+                // SizeBoxV(h8),
+                TimeCountWidget(
+                    count: "${controller.seconds.value}", text: 'SEC'),
+              ],
             ),
-            const SizeBoxH(h20),
-            InkWell(
-              onTap: () => launchURLs(state.liveUrl),
-              child: Container(
-                width: 198,
-                decoration: BoxDecoration(
-                    image: const DecorationImage(
-                        fit: BoxFit.fill,
-                        image: AssetImage("asset/orange_button.jpeg")),
-                    color: AppColors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(8))),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 12.0, horizontal: 24),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.play_circle_fill_rounded,
-                        color: AppColors.white,
-                        size: 18,
-                      ),
-                      const SizeBoxV(8),
-                      Text(
-                        "Watch Videos",
-                        style: context.textTheme.titleMedium!.copyWith(
-                            color: AppColors.white,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+          const SizeBoxH(h32),
+          CommonButtonV1(
+            label: 'Watch videos',
+            onPressed: () => launchURLs(state.liveUrl),
+          ),
+          const SizeBoxH(8),
+          // InkWell(
+          //   onTap: () => launchURLs(state.liveUrl),
+          //   child: Container(
+          //     width: 198,
+          //     decoration: BoxDecoration(
+          //         image: const DecorationImage(
+          //             fit: BoxFit.fill,
+          //             image: AssetImage("asset/orange_button.jpeg")),
+          //         color: AppColors.white,
+          //         borderRadius: const BorderRadius.all(Radius.circular(8))),
+          //     child: Padding(
+          //       padding:
+          //           const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24),
+          //       child: Row(
+          //         children: [
+          //           const Icon(
+          //             Icons.play_circle_fill_rounded,
+          //             color: Colors.red,
+          //             size: 24,
+          //           ),
+          //           const SizeBoxV(8),
+          //           Text(
+          //             "Watch Videos",
+          //             style: context.textTheme.titleMedium!.copyWith(
+          //                 color: AppColors.white, fontWeight: FontWeight.w600),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        ],
       );
     });
   }
@@ -312,6 +330,60 @@ class TimeCountWidget extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class CommonButtonV1 extends StatefulWidget {
+  final String label;
+  final void Function()? onPressed;
+  final Color? bgColor;
+  final double? btnHeight;
+  const CommonButtonV1(
+      {super.key,
+      required this.label,
+      required this.onPressed,
+      this.bgColor,
+      this.btnHeight});
+
+  @override
+  State<CommonButtonV1> createState() => _CommonButtonV1State();
+}
+
+class _CommonButtonV1State extends State<CommonButtonV1> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: context.width,
+      height: widget.btnHeight ?? 40,
+      child: ElevatedButton(
+        onPressed: widget.onPressed,
+        style: ElevatedButton.styleFrom(
+          shadowColor: AppColors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32),
+          ),
+          backgroundColor: Colors.red.withOpacity(0.7),
+          elevation: 4.0,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.play_circle_fill_rounded,
+              size: 24,
+              color: Colors.white,
+            ),
+            const SizeBoxV(h8),
+            Text(
+              widget.label,
+              style: context.textTheme.titleMedium!.copyWith(
+                color: AppColors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

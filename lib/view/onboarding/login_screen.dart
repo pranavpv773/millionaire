@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:millionaire_app/controller/cubit/onboarding/cubit/onboarding_cubit.dart';
 import 'package:millionaire_app/utils/colors.dart';
 
@@ -19,8 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 80.0),
+          child: SizedBox(
+            height: context.height,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,29 +62,32 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<OnboardingCubit>(context);
-    return SizedBox(
-      height: 60,
-      child: TextButton(
-        onPressed: () {
-          cubit.onboardTheUser(context);
-        },
-        child: Ink(
-          decoration: BoxDecoration(
-            color: AppColors.primary,
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          child: const Center(
-            child: Text(
-              "Login",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+    return BlocBuilder<OnboardingCubit, OnboardingState>(
+        builder: (context, state) {
+      return SizedBox(
+        height: 60,
+        child: TextButton(
+          onPressed: () {
+            cubit.onLoginFn(context: context);
+          },
+          child: Ink(
+            decoration: BoxDecoration(
+              color: AppColors.primary,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: const Center(
+              child: Text(
+                "Login",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 
@@ -92,9 +96,12 @@ class VerificationFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = BlocProvider.of<OnboardingCubit>(context);
+
     return BlocBuilder<OnboardingCubit, OnboardingState>(
         builder: (context, state) {
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
             padding: const EdgeInsets.all(8.0),
@@ -110,16 +117,58 @@ class VerificationFields extends StatelessWidget {
               cursorColor: Colors.black,
               style: const TextStyle(color: Colors.black),
               decoration: InputDecoration(
-                border: const OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color:
+                            state.isValidEmail ? AppColors.grey : Colors.red)),
+                disabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color:
+                            state.isValidEmail ? AppColors.grey : Colors.red)),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color:
+                            state.isValidEmail ? AppColors.grey : Colors.red)),
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color:
+                            state.isValidEmail ? AppColors.grey : Colors.red)),
                 hintText: "Email",
                 hintStyle: TextStyle(color: Colors.grey[400]),
               ),
+              onChanged: (value) {
+                if (state.isValidEmail == false) {
+                  cubit.validLoginEmail();
+                }
+              },
             ),
           ),
+          state.isValidEmail
+              ? const SizedBox.shrink()
+              : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    "Please enter a valid email",
+                    style: context.textTheme.bodySmall!.copyWith(
+                        color: Colors.red, fontWeight: FontWeight.w500),
+                  ),
+                ),
           Container(
             padding: const EdgeInsets.all(8.0),
             child: const PasswordField(),
-          )
+          ),
+          state.isValidPassword
+              ? const SizedBox.shrink()
+              : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    "Password length must be greater than 7",
+                    style: context.textTheme.bodySmall!.copyWith(
+                        color: Colors.red,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14),
+                  ),
+                ),
         ],
       );
     });
@@ -146,6 +195,8 @@ class _PasswordFieldState extends State<PasswordField> {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = BlocProvider.of<OnboardingCubit>(context);
+
     return BlocBuilder<OnboardingCubit, OnboardingState>(
         builder: (context, state) {
       return TextFormField(
@@ -157,12 +208,28 @@ class _PasswordFieldState extends State<PasswordField> {
             icon: Icon(_ishidden ? Icons.visibility_off : Icons.visibility),
             onPressed: _toggleVisibility,
           ),
-          border: const OutlineInputBorder(),
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: state.isValidPassword ? AppColors.grey : Colors.red)),
+          disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: state.isValidPassword ? AppColors.grey : Colors.red)),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: state.isValidPassword ? AppColors.grey : Colors.red)),
+          border: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: state.isValidPassword ? AppColors.grey : Colors.red)),
           hintText: "Password",
           hintStyle: TextStyle(
             color: Colors.grey[400],
           ),
         ),
+        onChanged: (value) {
+          if (state.isValidPassword == false) {
+            cubit.onPasswordChanged();
+          }
+        },
       );
     });
   }

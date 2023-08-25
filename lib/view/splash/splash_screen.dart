@@ -2,9 +2,12 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:millionaire_app/utils/colors.dart';
+import 'package:millionaire_app/utils/helpers.dart';
 import 'package:millionaire_app/utils/routes/app_routes.dart';
+import 'package:millionaire_app/utils/size.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,11 +30,35 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: AppColors.primary,
       body: SizedBox(
         height: context.height,
-        child: Center(
-          child: Image.asset(
-            'asset/logos/logo.png',
-            width: context.width * 0.5,
-            height: context.width * 0.5,
+        child: AnimationLimiter(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: AnimationConfiguration.toStaggeredList(
+              duration: const Duration(milliseconds: 375),
+              childAnimationBuilder: (widget) => SlideAnimation(
+                verticalOffset: context.height,
+                duration: const Duration(seconds: 3),
+                child: FadeInAnimation(
+                  child: widget,
+                ),
+              ),
+              children: [
+                Center(
+                  child: Image.asset(
+                    'asset/logos/logo.png',
+                    width: context.width * 0.3,
+                    height: context.width * 0.3,
+                  ),
+                ),
+                const SizeBoxH(h12),
+                Text(
+                  "OWPM",
+                  style: context.textTheme.displayLarge!
+                      .copyWith(color: AppColors.white, letterSpacing: 5),
+                )
+              ],
+            ),
           ),
         ),
       ),

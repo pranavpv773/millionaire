@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:millionaire_app/controller/cubit/home/home_cubit_cubit.dart';
 import 'package:millionaire_app/utils/colors.dart';
 import 'package:millionaire_app/utils/shimmers.dart';
+import 'package:millionaire_app/utils/size.dart';
 
 import 'helpers.dart';
 
@@ -51,11 +52,16 @@ class _CommonScaffoldState extends State<CommonScaffold> {
                           const SizeBoxH(8),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                "asset/coin.png",
-                                width: context.width / 30,
+                              SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Center(
+                                  child: Image.asset(
+                                    "asset/coin.png",
+                                  ),
+                                ),
                               ),
                               Text(
                                 " ${state.walletData.balance.toString()}",
@@ -71,15 +77,29 @@ class _CommonScaffoldState extends State<CommonScaffold> {
           }),
         ],
         backgroundColor: AppColors.primary,
+        leadingWidth: 200,
         leading: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Image.asset(
-            'asset/logos/logo.png',
-            width: 30,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image.asset(
+                'asset/logos/logo.png',
+                width: 30,
+              ),
+              const SizeBoxV(h8),
+              Text(
+                "OWPM",
+                style: context.textTheme.displayMedium!.copyWith(
+                    color: AppColors.white, fontSize: 16, letterSpacing: 2),
+              )
+            ],
           ),
         ),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: widget.child,
       ),
     );

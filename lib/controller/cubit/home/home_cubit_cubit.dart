@@ -101,4 +101,17 @@ class HomeCubit extends Cubit<HomeState> with Endpoints {
       ));
     }
   }
+
+  clearState() {
+    emit(state.copyWith(
+      banners: const [],
+      bannerStatus: BannerStatus.initial,
+      liveUrl: '',
+      urlStatus: UrlStatus.initial,
+      walletBalanceStatus: WalletBalanceStatus.initial,
+      walletData: WalletData(),
+      purchaseData: PurchaseData(),
+      purchaseTicketStatus: PurchaseTicketStatus.initial,
+    ));
+  }
 }

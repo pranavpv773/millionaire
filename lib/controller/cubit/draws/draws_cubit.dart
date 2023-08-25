@@ -35,4 +35,14 @@ class DrawsCubit extends Cubit<DrawsState> with Endpoints {
       emit(state.copyWith(pastDrawLength: 3, seePastDraw: 'See all'));
     }
   }
+
+  clearState() {
+    emit(state.copyWith(
+      winningStatus: WinningStatus.initial,
+      pastDrawLength: 3,
+      seePastDraw: 'See all',
+      pastDrawList: [],
+      pastDrawStatus: PastDrawStatus.initial,
+    ));
+  }
 }
