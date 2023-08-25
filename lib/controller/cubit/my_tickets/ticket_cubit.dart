@@ -27,4 +27,11 @@ class TicketCubit extends Cubit<TicketState> with Endpoints {
       ));
     }
   }
+
+  clearState() {
+    emit(state.copyWith(
+      myTickets: [],
+      myticketStatus: MyTicketStatus.initial,
+    ));
+  }
 }

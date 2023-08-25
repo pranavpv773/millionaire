@@ -62,6 +62,7 @@ class CommonButton extends StatelessWidget {
               ),
             )
           : SizedBox(
+              width: width,
               height: height,
               child: ElevatedButton(
                 onPressed: onPressed,
@@ -117,7 +118,10 @@ class CommonButtonSecondary extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-                side: BorderSide(color: AppColors.secondary)),
+                borderRadius: BorderRadius.circular(4),
+                side: BorderSide(
+                  color: AppColors.secondary,
+                )),
             elevation: 0,
             padding: padding,
             backgroundColor: AppColors.white,

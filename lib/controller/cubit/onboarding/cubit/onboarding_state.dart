@@ -12,12 +12,15 @@ class OnboardingState extends Equatable {
   final LoginStatus loginStatus;
   final TextEditingController emailController;
   final TextEditingController passwordController;
-
+  final bool isValidEmail;
+  final bool isValidPassword;
   const OnboardingState({
     required this.onboardingData,
     required this.loginStatus,
     required this.emailController,
     required this.passwordController,
+    required this.isValidEmail,
+    required this.isValidPassword,
   });
 
   factory OnboardingState.initial() {
@@ -26,6 +29,8 @@ class OnboardingState extends Equatable {
       loginStatus: LoginStatus.initial,
       emailController: TextEditingController(),
       passwordController: TextEditingController(),
+      isValidEmail: true,
+      isValidPassword: true,
     );
   }
 
@@ -34,12 +39,16 @@ class OnboardingState extends Equatable {
     LoginStatus? loginStatus,
     TextEditingController? emailController,
     TextEditingController? passwordController,
+    bool? isValidPassword,
+    bool? isValidEmail,
   }) {
     return OnboardingState(
       onboardingData: onboardingData ?? this.onboardingData,
       loginStatus: loginStatus ?? this.loginStatus,
       emailController: emailController ?? this.emailController,
       passwordController: passwordController ?? this.passwordController,
+      isValidEmail: isValidEmail ?? this.isValidEmail,
+      isValidPassword: isValidPassword ?? this.isValidPassword,
     );
   }
 
@@ -50,6 +59,8 @@ class OnboardingState extends Equatable {
       loginStatus,
       emailController,
       passwordController,
+      isValidEmail,
+      isValidPassword,
     ];
   }
 }

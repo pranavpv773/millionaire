@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:millionaire_app/controller/cubit/global_screen/global_screen_cubit.dart';
+import 'package:millionaire_app/controller/cubit/home/home_cubit_cubit.dart';
 import 'package:millionaire_app/utils/colors.dart';
 import 'package:millionaire_app/view/More/more.dart';
+import 'package:millionaire_app/view/More/widgets/tickets/tickets.dart';
 import 'package:millionaire_app/view/draws/draws.dart';
 import 'package:millionaire_app/view/home/home_screen.dart';
-import 'package:millionaire_app/view/transaction/transaction.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class Landing extends StatefulWidget {
@@ -19,6 +20,7 @@ class Landing extends StatefulWidget {
 class _LandingState extends State<Landing> {
   @override
   void initState() {
+    context.read<HomeCubit>().getWalletBalance();
     super.initState();
   }
 
@@ -39,20 +41,20 @@ class _LandingState extends State<Landing> {
                 cubit.changeiconIndex(value);
               },
               controller: state.controller,
-              navBarHeight: 70,
+              navBarHeight: 76,
               padding: const NavBarPadding.symmetric(vertical: 15),
               screens: _buildScreens(),
               items: [
                 presistentBottomNavBar(
                   state.index == 0
                       ? LandingIcons(
-                          icons: Icons.home_rounded,
+                          icons: Icons.home_outlined,
                           title: 'Home',
                           iconcolor: AppColors.primary,
                           textcolor: AppColors.primary,
                         )
                       : LandingIcons(
-                          icons: Icons.home_rounded,
+                          icons: Icons.home_outlined,
                           title: 'Home',
                           iconcolor: AppColors.grey,
                           textcolor: AppColors.grey,
@@ -76,14 +78,14 @@ class _LandingState extends State<Landing> {
                 presistentBottomNavBar(
                   state.index == 2
                       ? LandingIcons(
-                          icons: Icons.wallet_membership_rounded,
-                          title: 'Wallet',
+                          icons: Icons.local_attraction_outlined,
+                          title: 'Tickets',
                           iconcolor: AppColors.primary,
                           textcolor: AppColors.primary,
                         )
                       : LandingIcons(
-                          icons: Icons.wallet_membership_rounded,
-                          title: 'Wallet',
+                          icons: Icons.local_attraction_outlined,
+                          title: 'Tickets',
                           iconcolor: AppColors.grey,
                           textcolor: AppColors.grey,
                         ),
@@ -91,13 +93,13 @@ class _LandingState extends State<Landing> {
                 presistentBottomNavBar(
                   state.index == 3
                       ? LandingIcons(
-                          icons: Icons.list,
+                          icons: Icons.density_medium_rounded,
                           title: 'More',
                           iconcolor: AppColors.primary,
                           textcolor: AppColors.primary,
                         )
                       : LandingIcons(
-                          icons: Icons.list,
+                          icons: Icons.density_medium_rounded,
                           title: 'More',
                           iconcolor: AppColors.grey,
                           textcolor: AppColors.grey,
@@ -111,12 +113,11 @@ class _LandingState extends State<Landing> {
               stateManagement: true,
               hideNavigationBarWhenKeyboardShows: true,
               decoration: NavBarDecoration(
-                border: Border.all(color: Colors.grey.withOpacity(0.1)),
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20)),
+                border: Border.all(color: Colors.transparent.withOpacity(0.1)),
+                // borderRadius: const BorderRadius.only(
+                //     topLeft: Radius.circular(0), topRight: Radius.circular(0)),
                 boxShadow: [
-                  const BoxShadow(color: Colors.black),
+                  const BoxShadow(color: Colors.transparent),
                 ],
               ),
               popAllScreensOnTapOfSelectedTab: true,
@@ -142,7 +143,7 @@ class _LandingState extends State<Landing> {
     return [
       const HomeScreen(),
       const DrawsScreen(),
-      const TransactionScreen(),
+      const TicketsScreen(),
       MoreScreen(),
     ];
   }

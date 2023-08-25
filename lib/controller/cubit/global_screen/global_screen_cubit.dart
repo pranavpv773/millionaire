@@ -32,4 +32,9 @@ class BottomNavCubit extends Cubit<BottomNavState> with Endpoints {
       default:
     }
   }
+
+  clearState() {
+    emit(state.copyWith(
+        index: 0, controller: PersistentTabController(initialIndex: 0)));
+  }
 }

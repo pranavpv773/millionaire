@@ -5,15 +5,11 @@ import 'package:millionaire_app/backend/model/login/onboarding_model.dart';
 class OnbaordingServices extends Endpoints {
   Future<OnBoardingModel> userOnboarding(
       {required String email, required String password}) async {
-    try {
-      final response = await dio.post(
-        onboardUser,
-        data: {"email": email, "password": password},
-      );
-      final body = onBoardingModelFromMap(jsonEncode(response.data));
-      return body;
-    } catch (e) {
-      rethrow;
-    }
+    final response = await dio.post(
+      onboardUser,
+      data: {"email": email, "password": password},
+    );
+    final body = onBoardingModelFromMap(jsonEncode(response.data));
+    return body;
   }
 }
