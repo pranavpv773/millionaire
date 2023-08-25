@@ -52,7 +52,7 @@ class _DrawsScreenState extends State<DrawsScreen> {
                   const SizeBoxH(h32),
                   Text(
                     'Winnings',
-                    style: context.textTheme.titleMedium!.copyWith(
+                    style: context.textTheme.bodyMedium!.copyWith(
                       color: AppColors.black,
                     ),
                   ),
@@ -88,17 +88,9 @@ class _DrawsScreenState extends State<DrawsScreen> {
                     children: [
                       Text(
                         'Past Draws',
-                        style: context.textTheme.titleMedium!.copyWith(
+                        style: context.textTheme.bodyMedium!.copyWith(
                           color: AppColors.black,
                         ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          context.read<DrawsCubit>().changePastDrawsLength();
-                        },
-                        child: Text(state.seePastDraw,
-                            style: context.textTheme.titleMedium!
-                                .copyWith(color: Colors.blue)),
                       ),
                     ],
                   ),
@@ -114,7 +106,7 @@ class _DrawsScreenState extends State<DrawsScreen> {
                               child: ListView.separated(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
-                                itemCount: state.pastDrawLength,
+                                itemCount: state.pastDrawList.length,
                                 separatorBuilder: (context, indexd) =>
                                     const SizeBoxH(16),
                                 itemBuilder: (context, index) {
@@ -144,11 +136,21 @@ class _DrawsScreenState extends State<DrawsScreen> {
                                                         .withOpacity(0.02))),
                                             child: ListTile(
                                               //subtitle: Text("Winning no:"),
-                                              leading: Icon(
-                                                Icons.filter_1_rounded,
-                                                size: 24,
-                                                color: AppColors.primary
-                                                    .withOpacity(0.7),
+                                              leading: Container(
+                                                width: 40,
+                                                height: 40,
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    color: AppColors.primary
+                                                        .withOpacity(0.7)),
+                                                child: Icon(
+                                                  Icons.filter_1_rounded,
+                                                  size: 24,
+                                                  color: AppColors.white
+                                                      .withOpacity(0.7),
+                                                ),
                                               ),
                                               minLeadingWidth:
                                                   context.width * 0.02,
@@ -157,7 +159,8 @@ class _DrawsScreenState extends State<DrawsScreen> {
                                                 style: context
                                                     .textTheme.titleMedium!
                                                     .copyWith(
-                                                        color: AppColors.grey,
+                                                        letterSpacing: 0.10,
+                                                        color: AppColors.black,
                                                         fontSize: 16),
                                               ),
                                               trailing: Text(
@@ -165,9 +168,7 @@ class _DrawsScreenState extends State<DrawsScreen> {
                                                 style: context
                                                     .textTheme.titleMedium!
                                                     .copyWith(
-                                                        color: AppColors
-                                                            .secondary
-                                                            .withOpacity(0.7),
+                                                        color: AppColors.grey,
                                                         fontSize: 16),
                                               ),
                                             ),
@@ -200,10 +201,16 @@ class WinningTileWidget extends StatelessWidget {
     'Mega Raffle prize'
   ];
   List priceMoney = [
-    r'10000$',
-    r'5000$',
-    r'1000$',
-    r'10000$ per month',
+    r'$10,000.00',
+    r'$5,000.00',
+    r'$1,000.00',
+    r'$10,000.00 per month',
+  ];
+  List priceimages = [
+    'asset/first_prize.png',
+    'asset/cash.png',
+    'asset/cash.png',
+    'asset/raffle_prize.png'
   ];
   @override
   Widget build(BuildContext context) {
@@ -218,18 +225,26 @@ class WinningTileWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Image.asset(
+                'asset/cash.png',
+                width: context.width * 0.3,
+              ),
               Text(
                 price[index],
                 style: context.textTheme.bodyMedium!
                     .copyWith(color: Colors.grey, fontSize: 16),
               ),
-              const SizeBoxH(h8),
-              Text(
-                priceMoney[index],
-                style: context.textTheme.bodyMedium!.copyWith(
-                    color: AppColors.primary,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
+              const SizeBoxH(h4),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  priceMoney[index],
+                  textAlign: TextAlign.center,
+                  style: context.textTheme.bodyMedium!.copyWith(
+                      color: AppColors.primary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
               )
             ]),
       ),

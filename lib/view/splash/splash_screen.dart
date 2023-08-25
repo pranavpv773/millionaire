@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:millionaire_app/utils/colors.dart';
@@ -17,6 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
+  bool checkingButton = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,10 +39,37 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> changeScreen(BuildContext context) async {
+    final check = await checking();
+    log(check.toString());
     await Future.delayed(
-      const Duration(seconds: 8),
+      const Duration(seconds: 5),
     );
-    Get.offAllNamed(AppRoutes.loginOrHome);
+    if (check) {
+      Get.offAllNamed(AppRoutes.loginOrHome);
+    } else {
+      Get.offAllNamed(AppRoutes.noInternetScreen);
+    }
+
     setState(() {});
+  }
+
+  Future<bool> checking() async {
+    checkingButton = true;
+    try {
+      final result = await InternetAddress.lookup('www.google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        log('connected');
+        checkingButton = false;
+        return true;
+      }
+      checkingButton = false;
+
+      return false;
+    } on SocketException catch (_) {
+      log('not connected');
+      checkingButton = false;
+
+      return false;
+    }
   }
 }

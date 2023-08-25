@@ -9,7 +9,7 @@ import 'package:millionaire_app/controller/cubit/home/home_cubit_cubit.dart';
 import 'package:millionaire_app/utils/colors.dart';
 import 'package:millionaire_app/utils/common_scaffold.dart';
 import 'package:millionaire_app/utils/helpers.dart';
-import 'package:millionaire_app/utils/lauchUrls.dart';
+import 'package:millionaire_app/utils/lauch_urls.dart';
 import 'package:millionaire_app/utils/routes/app_routes.dart';
 import 'package:millionaire_app/utils/shimmers.dart';
 import 'package:millionaire_app/utils/size.dart';
@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4),
                           ),
-                          backgroundColor: AppColors.primary,
+                          backgroundColor: AppColors.primary.withOpacity(0.7),
                           elevation: 4.0,
                         ),
                         child: Text(
@@ -210,8 +210,8 @@ class OwpmWidget extends StatelessWidget {
                   children: [
                     Text(
                       "Join The Draw Every Sunday At 8PM (UAE) ",
-                      style: context.textTheme.bodyMedium!.copyWith(
-                          color: AppColors.black, fontWeight: FontWeight.w500),
+                      style: context.textTheme.titleMedium!.copyWith(
+                          color: AppColors.black, fontWeight: FontWeight.w400),
                     ),
                     Image.asset(
                       'asset/flag.jpeg',

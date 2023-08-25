@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:millionaire_app/controller/cubit/home/home_cubit_cubit.dart';
 import 'package:millionaire_app/utils/colors.dart';
+import 'package:millionaire_app/utils/shimmers.dart';
 
 import 'helpers.dart';
 
@@ -26,29 +29,46 @@ class _CommonScaffoldState extends State<CommonScaffold> {
       appBar: AppBar(
         toolbarHeight: 60,
         actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Wallet",
-                    style: context.textTheme.bodySmall!.copyWith(
-                        color: AppColors.white,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.90),
-                  ),
-                  const SizeBoxH(8),
-                  Text(
-                    r"$1,254",
-                    style: context.textTheme.bodySmall!.copyWith(
-                        color: AppColors.white,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.90),
-                  ),
-                ]),
-          ),
+          BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: state.walletBalanceStatus == WalletBalanceStatus.loading
+                  ? ShimmerText(
+                      height: 30,
+                      width: 60,
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                          Text(
+                            "Wallet",
+                            style: context.textTheme.bodySmall!.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0.90),
+                          ),
+                          const SizeBoxH(8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset(
+                                "asset/coin.png",
+                                width: context.width / 30,
+                              ),
+                              Text(
+                                " ${state.walletData.balance.toString()}",
+                                style: context.textTheme.bodySmall!.copyWith(
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 0.90),
+                              ),
+                            ],
+                          ),
+                        ]),
+            );
+          }),
         ],
         backgroundColor: AppColors.primary,
         leading: Padding(
