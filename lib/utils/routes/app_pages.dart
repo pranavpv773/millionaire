@@ -1,19 +1,22 @@
+import 'package:OWPM/module/global_screen/screen/global_screen.dart';
+import 'package:OWPM/module/home/screen/buy_now.dart';
+import 'package:OWPM/module/more_options/screen/how_to_use_screen.dart';
+import 'package:OWPM/module/more_options/screen/privacy_policy.dart';
+import 'package:OWPM/module/my_tickets/screen/tickets.dart';
+import 'package:OWPM/module/onboarding/screens/login_screen.dart';
+import 'package:OWPM/module/splash/screens/no_internet/no_internet.dart';
+import 'package:OWPM/module/splash/screens/splash_screen.dart';
+import 'package:OWPM/utils/apppref.dart';
 import 'package:flutter/material.dart';
-import 'package:millionaire_app/utils/apppref.dart';
-import 'package:millionaire_app/utils/routes/app_routes.dart';
-import 'package:millionaire_app/view/More/widgets/how_to_use/how_to_use_screen.dart';
-import 'package:millionaire_app/view/More/widgets/tickets/tickets.dart';
-import 'package:millionaire_app/view/global_screen/global_screen.dart';
-import 'package:millionaire_app/view/home/widgets/buy_now/buy_now.dart';
-import 'package:millionaire_app/view/home/widgets/buy_now/wallet_recharge/convert_coin.dart';
-import 'package:millionaire_app/view/no_internet/no_internet.dart';
-import 'package:millionaire_app/view/onboarding/login_screen.dart';
-import 'package:millionaire_app/view/splash/splash_screen.dart';
 import 'package:page_transition/page_transition.dart';
+
+import 'app_routes.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final url = settings.name;
+    final args = settings.arguments;
+
     switch (url) {
       case "/":
         return pagetransition(settings, const SplashScreen());
@@ -25,8 +28,6 @@ class RouteGenerator {
         return pagetransition(settings, const Landing());
       case AppRoutes.ticketScreen:
         return pagetransition(settings, const TicketsScreen());
-      case AppRoutes.walletScreen:
-        return pagetransition(settings, const CostOfCoinScreen());
 
       case AppRoutes.howtoUseScreen:
         return pagetransition(settings, const HowToUseScreen());
@@ -34,12 +35,21 @@ class RouteGenerator {
         return pagetransition(settings, const NoInternetScreen());
       case AppRoutes.buynowScreen:
         return pagetransition(settings, const BuyNowScreen());
+      case AppRoutes.privacyPolicyScreen:
+        if (args is Map) {
+          return pagetransition(settings, const WebViewXPage());
+        }
+        break;
       default:
         return pagetransition(
           settings,
           const SplashScreen(),
         );
     }
+    return MaterialPageRoute(
+        builder: (_) => const Scaffold(
+              body: Center(child: Error()),
+            ));
   }
 
   static PageTransition<dynamic> pagetransition(

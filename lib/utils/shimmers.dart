@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:millionaire_app/utils/colors.dart';
-import 'package:millionaire_app/utils/helpers.dart';
+import 'package:OWPM/utils/colors.dart';
+import 'package:OWPM/utils/helpers.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerListTile extends StatelessWidget {

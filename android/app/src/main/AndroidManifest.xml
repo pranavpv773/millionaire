@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.millionaire_app">
+    package="com.OWPM.app">
 <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="millionaire_app"
+        android:label="OWPM"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
