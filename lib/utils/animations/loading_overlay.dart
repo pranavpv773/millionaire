@@ -1,7 +1,7 @@
 import 'dart:ui';
+import 'package:OWPM/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:millionaire_app/utils/colors.dart';
 
 class LoadingOverlay {
   BuildContext _context;

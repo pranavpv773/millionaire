@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:millionaire_app/utils/colors.dart';
+import 'package:OWPM/utils/colors.dart';
 
 class CommonListTile extends StatelessWidget {
   final String? title;

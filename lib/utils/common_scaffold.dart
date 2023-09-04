@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:millionaire_app/controller/cubit/home/home_cubit_cubit.dart';
-import 'package:millionaire_app/utils/colors.dart';
-import 'package:millionaire_app/utils/shimmers.dart';
-import 'package:millionaire_app/utils/size.dart';
+import 'package:OWPM/app/app_images/app_images.dart';
+import 'package:OWPM/module/home/cubit/home_cubit_cubit.dart';
+import 'package:OWPM/utils/colors.dart';
+import 'package:OWPM/utils/shimmers.dart';
+import 'package:OWPM/utils/size.dart';
 
 import 'helpers.dart';
 
@@ -28,7 +29,7 @@ class _CommonScaffoldState extends State<CommonScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 60,
+        toolbarHeight: 66,
         actions: [
           BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
             return Padding(
@@ -59,7 +60,7 @@ class _CommonScaffoldState extends State<CommonScaffold> {
                                 width: 20,
                                 child: Center(
                                   child: Image.asset(
-                                    "asset/coin.png",
+                                    AppImages.coinPath,
                                   ),
                                 ),
                               ),
@@ -85,14 +86,14 @@ class _CommonScaffoldState extends State<CommonScaffold> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Image.asset(
-                'asset/logos/logo.png',
+                AppImages.logoPath,
                 width: 30,
               ),
               const SizeBoxV(h8),
               Text(
                 "OWPM",
                 style: context.textTheme.displayMedium!.copyWith(
-                    color: AppColors.white, fontSize: 16, letterSpacing: 2),
+                    color: Colors.amber, fontSize: 16, letterSpacing: 2),
               )
             ],
           ),

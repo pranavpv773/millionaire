@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:millionaire_app/utils/colors.dart';
-import 'package:millionaire_app/utils/size.dart';
+import 'package:OWPM/utils/colors.dart';
+import 'package:OWPM/utils/size.dart';
 
 import 'button.dart';
 import 'helpers.dart';
