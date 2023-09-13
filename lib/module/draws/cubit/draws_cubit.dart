@@ -15,6 +15,7 @@ class DrawsCubit extends Cubit<DrawsState> with Endpoints {
     emit(state.copyWith(pastDrawStatus: PastDrawStatus.loading));
     try {
       final list = await services.getPastDrawsList();
+      print(list.data![0].winningNumber![0].toString());
       emit(
         state.copyWith(
             pastDrawStatus: PastDrawStatus.loaded, pastDrawList: list.data),

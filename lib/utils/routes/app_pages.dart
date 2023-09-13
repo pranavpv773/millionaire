@@ -1,5 +1,6 @@
 import 'package:OWPM/module/global_screen/screen/global_screen.dart';
 import 'package:OWPM/module/home/screen/buy_now.dart';
+import 'package:OWPM/module/home/screen/widgets/select_raffle_screen.dart';
 import 'package:OWPM/module/more_options/screen/how_to_use_screen.dart';
 import 'package:OWPM/module/more_options/screen/privacy_policy.dart';
 import 'package:OWPM/module/my_tickets/screen/tickets.dart';
@@ -33,6 +34,8 @@ class RouteGenerator {
         return pagetransition(settings, const HowToUseScreen());
       case AppRoutes.noInternetScreen:
         return pagetransition(settings, const NoInternetScreen());
+      case AppRoutes.selectNumberScreen:
+        return pagetransition(settings, const SelectRaffleIdScreen());
       case AppRoutes.buynowScreen:
         return pagetransition(settings, const BuyNowScreen());
       case AppRoutes.privacyPolicyScreen:

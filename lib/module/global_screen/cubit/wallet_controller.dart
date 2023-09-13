@@ -101,7 +101,8 @@ class WalletController extends GetxController implements GetxService {
   }
 
   Map<String, dynamic>? paymentIntentData1 = {};
-  Future<void> makePaymentFromCheckout(context, {required String date}) async {
+  Future<void> makePaymentFromCheckout(context,
+      {required String date, required List numbers}) async {
     var params = {"amount": 20};
     try {
       var response = await WalletServices().rechargeWallet(params);
@@ -135,8 +136,8 @@ class WalletController extends GetxController implements GetxService {
         //STEP 3: Display Payment sheet
         try {
           await Stripe.instance.presentPaymentSheet().then((value) {
-            log("data$value");
-            validatePayment(context, date: date);
+            log("NUMBERS $numbers");
+            validatePayment(context, date: date, numbers: numbers);
           });
           log("success");
         } on Exception catch (e) {
@@ -173,7 +174,8 @@ class WalletController extends GetxController implements GetxService {
   }
 
 //validate payment
-  void validatePayment(BuildContext context, {required String date}) async {
+  void validatePayment(BuildContext context,
+      {required String date, required List numbers}) async {
     String clintUrl = AppPref.clientUrl;
     String transactionId = AppPref.transactionId;
     String trimedId = clintUrl.substring(0, 27);
@@ -181,10 +183,11 @@ class WalletController extends GetxController implements GetxService {
     var response = await WalletServices().validatePayment(params);
     if (response.statusCode >= 200 || response.statusCode <= 299) {
       context.read<HomeCubit>().purchaseTicketFns(
-        data: {"number": [], "date": date, "password": ""},
+        data: {"number": numbers, "date": date, "password": ""},
         context: context,
       );
     } else {
+      print("e;s");
       log(response.body);
     }
     update();

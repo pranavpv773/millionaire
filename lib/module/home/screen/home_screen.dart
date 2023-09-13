@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,64 +37,77 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CommonScaffold(
-      child: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-        return GetBuilder<HomeController>(builder: (_) {
-          return Column(
-            children: AnimationConfiguration.toStaggeredList(
-              duration: const Duration(milliseconds: 375),
-              childAnimationBuilder: (widget) => SlideAnimation(
-                horizontalOffset: 50.0,
-                child: FadeInAnimation(
-                  child: widget,
+    return RefreshIndicator(
+      displacement: 250,
+      strokeWidth: 3,
+      triggerMode: RefreshIndicatorTriggerMode.onEdge,
+      onRefresh: () async {
+        await Future.delayed(
+          const Duration(milliseconds: 1000),
+        );
+        context.read<HomeCubit>().getallBanners();
+        context.read<HomeCubit>().getUrl();
+        context.read<HomeCubit>().getUserModel();
+      },
+      child: CommonScaffold(
+        child: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+          return GetBuilder<HomeController>(builder: (_) {
+            return Column(
+              children: AnimationConfiguration.toStaggeredList(
+                duration: const Duration(milliseconds: 375),
+                childAnimationBuilder: (widget) => SlideAnimation(
+                  horizontalOffset: 50.0,
+                  child: FadeInAnimation(
+                    child: widget,
+                  ),
                 ),
-              ),
-              children: [
-                state.bannerStatus == BannerStatus.loading
-                    ? const ShimmerBanner()
-                    : state.bannerStatus == BannerStatus.error
-                        ? Text(
-                            "something went wrong",
-                            style: context.textTheme.bodySmall,
-                          )
-                        : CarouselSlider(
-                            options: CarouselOptions(
-                              autoPlay: true,
-                              aspectRatio: 16 / 9,
-                              autoPlayCurve: Curves.fastOutSlowIn,
-                              enableInfiniteScroll: true,
-                              autoPlayAnimationDuration:
-                                  const Duration(milliseconds: 800),
-                              viewportFraction: 1,
-                            ),
-                            items: state.banners.map((i) {
-                              return Builder(
-                                builder: (BuildContext context) {
-                                  return Container(
-                                    width: context.width,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                          "$imageBaseurl/uploads/${i.image.toString()}",
+                children: [
+                  state.bannerStatus == BannerStatus.loading
+                      ? const ShimmerBanner()
+                      : state.bannerStatus == BannerStatus.error
+                          ? Text(
+                              "something went wrong",
+                              style: context.textTheme.bodySmall,
+                            )
+                          : CarouselSlider(
+                              options: CarouselOptions(
+                                autoPlay: true,
+                                aspectRatio: 16 / 9,
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                enableInfiniteScroll: true,
+                                autoPlayAnimationDuration:
+                                    const Duration(milliseconds: 800),
+                                viewportFraction: 1,
+                              ),
+                              items: state.banners.map((i) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                      width: context.width,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                            "$imageBaseurl/uploads/${i.image.toString()}",
+                                          ),
+                                          fit: BoxFit.fill,
                                         ),
-                                        fit: BoxFit.fill,
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
-                            }).toList(),
-                          ),
-                const CommonShadowContainer(
-                  child: CountTimerWidget(),
-                ),
-                const BuyNowGreenCertificate(),
-                const SizeBoxH(h32)
-              ],
-            ),
-          );
-        });
-      }),
+                                    );
+                                  },
+                                );
+                              }).toList(),
+                            ),
+                  const CommonShadowContainer(
+                    child: CountTimerWidget(),
+                  ),
+                  const BuyNowGreenCertificate(),
+                  const SizeBoxH(h32)
+                ],
+              ),
+            );
+          });
+        }),
+      ),
     );
   }
 }

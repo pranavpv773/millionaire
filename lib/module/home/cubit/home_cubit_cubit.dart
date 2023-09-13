@@ -12,11 +12,15 @@ import 'package:OWPM/module/home/service/home_services.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:OWPM/module/my_tickets/cubit/ticket_cubit.dart';
 import 'package:OWPM/module/onboarding/model/userModel.dart';
+import 'package:get/get.dart';
+
+import 'controller/home_controller.dart';
 part 'home_cubit_state.dart';
 
 class HomeCubit extends Cubit<HomeState> with Endpoints {
   HomeServices services = HomeServices();
   HomeCubit() : super(HomeState.initial());
+  final HomeController controller = Get.put(HomeController());
 
   getallBanners() async {
     emit(state.copyWith(bannerStatus: BannerStatus.loading));
@@ -79,27 +83,37 @@ class HomeCubit extends Cubit<HomeState> with Endpoints {
         CoolAlert.show(
           context: context,
           type: CoolAlertType.success,
-          text: 'Raffle Id: ${state.purchaseData.raffleId}',
+          text:
+              'Raffle Id: ${state.purchaseData.raffleId}\nWe have send the GREEN CERTIFICATE to your mail.',
           title: 'Ticket created successfully!',
           autoCloseDuration: const Duration(seconds: 5),
         );
         context.read<TicketCubit>().getMyTickets();
         getWalletBalance();
+        controller.clearNumberList();
         // Get.toNamed(AppRoutes.landingScreen);
       } else {
-        CoolAlert.show(
-          context: context,
-          type: CoolAlertType.error,
-          text: 'Unable to buy ticket!',
-          autoCloseDuration: const Duration(seconds: 5),
-        );
+        Get.snackbar("ERROR", list.message.toString());
       }
 
       // ignore: deprecated_member_use
-    } on DioError catch (_) {
+    } on DioError catch (e) {
       emit(state.copyWith(
         purchaseTicketStatus: PurchaseTicketStatus.error,
       ));
+      CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          title: "Error",
+          textTextStyle: context.textTheme.bodyMedium!.copyWith(
+            color: Colors.black,
+          ),
+          titleTextStyle: context.textTheme.bodyMedium!.copyWith(
+            color: Colors.red,
+          ),
+          text: '${e.response!.data['data']['message']}',
+          autoCloseDuration: const Duration(seconds: 3),
+          closeOnConfirmBtnTap: true);
     }
   }
 

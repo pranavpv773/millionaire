@@ -19,7 +19,7 @@ class WinningTileWidget extends StatelessWidget {
     r'$10,000.00',
     r'$5,000.00',
     r'$1,000.00',
-    r'$10,000.00 per month',
+    '10k x 12 months\nyearly one draw',
   ];
 
   @override

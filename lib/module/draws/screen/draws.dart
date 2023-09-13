@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:OWPM/module/my_tickets/screen/tickets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -137,54 +138,122 @@ class _DrawsScreenState extends State<DrawsScreen> {
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                             child: Container(
-                                              height: 70,
+                                              padding: const EdgeInsets.all(16),
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(8),
                                                   border: Border.all(
                                                       color: AppColors.grey
                                                           .withOpacity(0.02))),
-                                              child: Center(
-                                                child: ListTile(
-                                                  //subtitle: Text("Winning no:"),
-                                                  leading: Container(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      RichTextWidget(
+                                                        text1: 'Raffle id: ',
+                                                        text2: state
+                                                            .pastDrawList[index]
+                                                            .raffleId
+                                                            .toString(),
+                                                        style2: context
+                                                            .textTheme
+                                                            .titleMedium!
+                                                            .copyWith(
+                                                          color:
+                                                              AppColors.primary,
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
+                                                      state
+                                                              .pastDrawList[
+                                                                  index]
+                                                              .winningNumber!
+                                                              .isEmpty
+                                                          ? const SizedBox
+                                                              .shrink()
+                                                          : SizedBox(
+                                                              height: 44.0,
+                                                              child: ListView(
+                                                                  shrinkWrap:
+                                                                      true,
+                                                                  scrollDirection:
+                                                                      Axis
+                                                                          .horizontal,
+                                                                  children: List
+                                                                      .generate(
+                                                                    state
+                                                                        .pastDrawList[
+                                                                            index]
+                                                                        .winningNumber!
+                                                                        .length,
+                                                                    (index2) =>
+                                                                        Center(
+                                                                      child:
+                                                                          Container(
+                                                                        padding:
+                                                                            const EdgeInsets.all(4),
+                                                                        decoration:
+                                                                            BoxDecoration(border: Border.all(color: AppColors.grey)),
+                                                                        child:
+                                                                            Text(
+                                                                          // ignore: invalid_use_of_protected_member
+                                                                          "${state.pastDrawList[index].winningNumber![index2].toString()} ",
+                                                                          style: context
+                                                                              .textTheme
+                                                                              .titleMedium!
+                                                                              .copyWith(
+                                                                            letterSpacing:
+                                                                                0.16,
+                                                                            color:
+                                                                                AppColors.black,
+                                                                            fontSize:
+                                                                                16,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  )),
+                                                            ),
+                                                      RichTextWidget(
+                                                        text1: 'Drawe Date: ',
+                                                        text2:
+                                                            formattedDatetime,
+                                                        style2: context
+                                                            .textTheme
+                                                            .titleMedium!
+                                                            .copyWith(
+                                                          color: AppColors
+                                                              .secondary,
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Container(
                                                     width: 40,
                                                     height: 40,
                                                     decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                        color: AppColors.primary
-                                                            .withOpacity(0.7)),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
+                                                      color: AppColors.primary
+                                                          .withOpacity(0.7),
+                                                    ),
                                                     child: Icon(
-                                                      Icons.filter_1_rounded,
+                                                      Icons
+                                                          .local_attraction_rounded,
                                                       size: 24,
                                                       color: AppColors.white
                                                           .withOpacity(0.7),
                                                     ),
                                                   ),
-                                                  minLeadingWidth:
-                                                      context.width * 0.02,
-                                                  title: Text(
-                                                    "${state.pastDrawList[index].raffleId}",
-                                                    style: context
-                                                        .textTheme.titleMedium!
-                                                        .copyWith(
-                                                            letterSpacing: 0.10,
-                                                            color:
-                                                                AppColors.black,
-                                                            fontSize: 16),
-                                                  ),
-                                                  trailing: Text(
-                                                    formattedDatetime,
-                                                    style: context
-                                                        .textTheme.titleMedium!
-                                                        .copyWith(
-                                                            color:
-                                                                AppColors.grey,
-                                                            fontSize: 16),
-                                                  ),
-                                                ),
+                                                ],
                                               ),
                                             ),
                                           ),
