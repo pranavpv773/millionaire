@@ -110,10 +110,14 @@ class _CommonScaffoldState extends State<CommonScaffold> {
 class CommonScaffoldWithAppbar extends StatefulWidget {
   final Widget child;
   final String header;
+  final Widget? floating;
+  final double? padding;
   const CommonScaffoldWithAppbar({
     super.key,
     required this.header,
     required this.child,
+    this.padding,
+    this.floating,
   });
 
   @override
@@ -125,13 +129,15 @@ class _CommonScaffoldWithAppbarState extends State<CommonScaffoldWithAppbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: widget.floating ?? const SizedBox.shrink(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         leadingWidth: 32,
         title: Text(widget.header),
         backgroundColor: AppColors.primary,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(widget.padding ?? 16.0),
         child: widget.child,
       ),
     );

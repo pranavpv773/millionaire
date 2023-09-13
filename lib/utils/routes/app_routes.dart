@@ -7,4 +7,5 @@ class AppRoutes {
   static const buynowScreen = '/buynowScreen';
   static const noInternetScreen = '/noInternetScreen';
   static const privacyPolicyScreen = '/privacyPolicy';
+  static const selectNumberScreen = '/selectNumberScreen';
 }

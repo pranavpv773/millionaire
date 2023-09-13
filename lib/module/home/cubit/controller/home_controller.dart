@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:get/get.dart';
@@ -11,6 +12,8 @@ class HomeController extends GetxController {
   RxInt seconds = 0.obs;
   late tz.Location dubai;
   late tz.TZDateTime nextSunday8PM;
+
+  RxList numberList = [].obs;
 
   @override
   void onInit() {
@@ -45,6 +48,28 @@ class HomeController extends GetxController {
     minutes.value = countdown.inMinutes.remainder(60);
     seconds.value = countdown.inSeconds.remainder(60);
 
+    update();
+  }
+
+  addOrRemoveFromList({required int item}) {
+    if (numberList.contains(item)) {
+      numberList.remove(item);
+    } else {
+      if (numberList.length == 7) {
+        Get.snackbar(
+          "Warning",
+          "You can only be able to select seven numbers",
+          icon: const Icon(Icons.dangerous_outlined, color: Colors.white),
+          snackPosition: SnackPosition.TOP,
+        );
+      } else {
+        numberList.add(item);
+      }
+    }
+  }
+
+  clearNumberList() {
+    numberList.clear();
     update();
   }
 }

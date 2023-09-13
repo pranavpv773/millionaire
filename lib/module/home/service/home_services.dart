@@ -65,22 +65,21 @@ class HomeServices extends Endpoints {
 
   Future<PostPurchaseModel> postPurchaseTicketService(
       {required dynamic data}) async {
-    try {
-      final response = await dio.post(
-        purchaseTicket,
-        data: data,
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${AppPref.userToken}',
-          },
-        ),
-      );
-      final body = postPurchaseModelFromMap(jsonEncode(response.data));
-      return body;
-    } catch (e) {
-      rethrow;
+    final response = await dio.post(
+      purchaseTicket,
+      data: data,
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${AppPref.userToken}',
+        },
+      ),
+    );
+    if (response.statusCode == 409) {
+      print("conflict");
     }
+    final body = postPurchaseModelFromMap(jsonEncode(response.data));
+    return body;
   }
   /* USER INFO API SERVICES */
 

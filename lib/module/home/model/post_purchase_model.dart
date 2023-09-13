@@ -36,6 +36,9 @@ class PostPurchaseModel {
 }
 
 class PurchaseData {
+  String? message;
+  String? error;
+  int? statusCode;
   String? userId;
   String? raffleId;
   List<dynamic>? number;
@@ -54,20 +57,25 @@ class PurchaseData {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.message,
+    this.error,
+    this.statusCode,
   });
 
   factory PurchaseData.fromMap(Map<String, dynamic> json) => PurchaseData(
-        userId: json["user_id"],
-        raffleId: json["raffle_id"],
-        number: json["number"] == null
-            ? []
-            : List<dynamic>.from(json["number"]!.map((x) => x)),
-        date: json["date"],
-        id: json["_id"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
-        v: json["__v"],
-      );
+      userId: json["user_id"],
+      raffleId: json["raffle_id"],
+      number: json["number"] == null
+          ? []
+          : List<dynamic>.from(json["number"]!.map((x) => x)),
+      date: json["date"],
+      id: json["_id"],
+      createdAt: json["created_at"],
+      updatedAt: json["updated_at"],
+      v: json["__v"],
+      message: json["message"],
+      error: json["error"],
+      statusCode: json["statusCode"]);
 
   Map<String, dynamic> toMap() => {
         "user_id": userId,

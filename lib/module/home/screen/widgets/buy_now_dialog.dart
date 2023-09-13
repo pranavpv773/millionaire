@@ -1,3 +1,4 @@
+import 'package:OWPM/module/home/cubit/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,8 @@ class BuyNowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController hController = Get.put(HomeController());
+
     var rowTextStyle = context.textTheme.bodyMedium!
         .copyWith(fontSize: 14, fontWeight: FontWeight.w400);
     final sundayDate = calculateUpcomingFirstSunday();
@@ -37,6 +40,7 @@ class BuyNowWidget extends StatelessWidget {
             const SizeBoxH(16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   "Wallet balance:",
@@ -59,6 +63,7 @@ class BuyNowWidget extends StatelessWidget {
             const SizeBoxH(8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   "Ticket price:",
@@ -81,6 +86,7 @@ class BuyNowWidget extends StatelessWidget {
             const SizeBoxH(8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   "Ticket draw date:",
@@ -92,13 +98,47 @@ class BuyNowWidget extends StatelessWidget {
                 ),
               ],
             ),
+            const SizeBoxH(8),
+            Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Selected number:",
+                    style: rowTextStyle,
+                  ),
+                  SizedBox(
+                    height: 44.0,
+                    child: ListView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        children: List.generate(
+                          hController.numberList.length,
+                          (index) => Center(
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: AppColors.grey)),
+                              child: Text(
+                                // ignore: invalid_use_of_protected_member
+                                "${hController.numberList[index].toString()} ",
+                                style: rowTextStyle,
+                              ),
+                            ),
+                          ),
+                        )),
+                  )
+                ],
+              ),
+            ),
             const SizeBoxH(36),
             int.parse(state.walletData.balance ?? "0") >= 20
                 ? PrimaryCommonButton(
                     onPressed: () {
                       Navigator.pop(context);
                       context.read<HomeCubit>().purchaseTicketFns(data: {
-                        "number": [],
+                        "number": hController.numberList,
                         "date": postDate,
                         "password": ""
                       }, context: ctxt);
@@ -107,7 +147,8 @@ class BuyNowWidget extends StatelessWidget {
                 : PrimaryCommonButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      controller.makePaymentFromCheckout(ctxt, date: postDate);
+                      controller.makePaymentFromCheckout(ctxt,
+                          date: postDate, numbers: hController.numberList);
                     },
                     backgroundColor: AppColors.primary.withOpacity(0.7),
                     label: "Recharge wallet")
@@ -116,14 +157,14 @@ class BuyNowWidget extends StatelessWidget {
       );
     });
   }
+}
 
-  DateTime calculateUpcomingFirstSunday() {
-    DateTime now = DateTime.now();
-    int daysUntilNextSunday = DateTime.sunday - now.weekday;
-    if (daysUntilNextSunday <= 0) {
-      daysUntilNextSunday += 7;
-    }
-    DateTime upcomingFirstSunday = now.add(Duration(days: daysUntilNextSunday));
-    return upcomingFirstSunday;
+DateTime calculateUpcomingFirstSunday() {
+  DateTime now = DateTime.now();
+  int daysUntilNextSunday = DateTime.sunday - now.weekday;
+  if (daysUntilNextSunday <= 0) {
+    daysUntilNextSunday += 7;
   }
+  DateTime upcomingFirstSunday = now.add(Duration(days: daysUntilNextSunday));
+  return upcomingFirstSunday;
 }

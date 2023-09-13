@@ -15,12 +15,10 @@ class WebViewXPage extends StatefulWidget {
 class _WebViewXPageState extends State<WebViewXPage> {
   int count = 0;
   late WebViewXController webviewController;
-  final initialContent =
-      '<h4> This is some hardcoded HTML code embedded inside the webview <h4> <h2> Hello world! <h2>';
-  final executeJsErrorMessage =
-      'Failed to execute this task because the current content is (probably) URL that allows iframe embedding, on Web.\n\n'
-      'A short reason for this is that, when a normal URL is embedded in the iframe, you do not actually own that content so you cant call your custom functions\n'
-      '(read the documentation to find out why).';
+  final initialContent = '<h4> <h2>';
+  final executeJsErrorMessage = 'Something went wrong!'
+      ''
+      '';
 
   Size get screenSize => MediaQuery.of(context).size;
   @override

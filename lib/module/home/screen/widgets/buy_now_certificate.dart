@@ -7,6 +7,9 @@ import 'package:OWPM/utils/container.dart';
 import 'package:OWPM/utils/helpers.dart';
 import 'package:OWPM/utils/routes/app_routes.dart';
 import 'package:OWPM/utils/size.dart';
+import 'package:intl/intl.dart';
+
+import 'buy_now_dialog.dart';
 
 class BuyNowGreenCertificate extends StatelessWidget {
   const BuyNowGreenCertificate({
@@ -15,6 +18,9 @@ class BuyNowGreenCertificate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sundayDate = calculateUpcomingFirstSunday();
+    String formattedSundayDate = DateFormat("dd MMM yyyy").format(sundayDate);
+
     return CommonShadowContainer(
       child: Column(
         children: [
@@ -38,7 +44,7 @@ class BuyNowGreenCertificate extends StatelessWidget {
                     height: h8,
                   ),
                   Text(
-                    "AED 10,000 * 12",
+                    "USD 10,000 * 12",
                     style: context.textTheme.bodyLarge!.copyWith(
                       color: AppColors.white,
                     ),
@@ -48,6 +54,7 @@ class BuyNowGreenCertificate extends StatelessWidget {
           const SizeBoxH(h20),
           Container(
             height: 600,
+            width: context.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
@@ -57,6 +64,16 @@ class BuyNowGreenCertificate extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
             ),
+            child: Padding(
+                padding: EdgeInsets.fromLTRB(70, context.height * 0.36, 20, 0),
+                child: Text(
+                  formattedSundayDate,
+                  style: context.textTheme.labelMedium!.copyWith(
+                      color: AppColors.black,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 11,
+                      letterSpacing: 0.6),
+                )),
           ),
           const SizeBoxH(h20),
           PrimaryCommonButton(
