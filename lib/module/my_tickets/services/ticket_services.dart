@@ -18,7 +18,6 @@ class TicketServices extends Endpoints {
           },
         ),
       );
-      print(AppPref.userToken);
       final body = myTicketModelFromMap(jsonEncode(response.data));
       return body;
     } catch (e) {

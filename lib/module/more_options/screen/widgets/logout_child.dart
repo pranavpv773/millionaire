@@ -21,17 +21,21 @@ class LogoutDialogChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             'Are you sure you want to logout?',
-            style: context.textTheme.displaySmall!.copyWith(fontSize: 24),
+            style: context.textTheme.bodySmall!.copyWith(
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+              color: AppColors.white,
+            ),
           ),
-          const SizeBoxH(30),
+          const SizeBoxH(36),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // SizeBoxV(10),
               CommonButtonSecondary(
@@ -48,13 +52,14 @@ class LogoutDialogChild extends StatelessWidget {
                 },
                 child: Text(
                   'Yes',
-                  style: context.textTheme.labelMedium,
+                  style: context.textTheme.labelLarge!
+                      .copyWith(color: AppColors.white),
                 ),
               ),
 
               widget ??
                   CommonButton(
-                    bgColor: AppColors.primary,
+                    bgColor: AppColors.btnV2,
                     labelColor: AppColors.white,
                     padding:
                         const EdgeInsets.symmetric(horizontal: 50, vertical: 2),

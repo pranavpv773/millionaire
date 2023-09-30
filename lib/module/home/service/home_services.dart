@@ -5,7 +5,7 @@ import 'package:OWPM/module/home/model/banner_model.dart';
 import 'package:OWPM/module/home/model/get_wallet_model.dart';
 import 'package:OWPM/module/home/model/post_purchase_model.dart';
 import 'package:OWPM/module/home/model/url_model.dart';
-import 'package:OWPM/module/onboarding/model/userModel.dart';
+import 'package:OWPM/module/onboarding/model/user_model.dart';
 import 'package:OWPM/utils/apppref.dart';
 
 class HomeServices extends Endpoints {
@@ -45,7 +45,7 @@ class HomeServices extends Endpoints {
     }
   }
 
-  Future<GetWalletModel> getWalletBalance() async {
+  Future<GetWalletModel> getWalletBalances() async {
     try {
       final response = await dio.get(
         walletUrl,
@@ -75,9 +75,7 @@ class HomeServices extends Endpoints {
         },
       ),
     );
-    if (response.statusCode == 409) {
-      print("conflict");
-    }
+    if (response.statusCode == 409) {}
     final body = postPurchaseModelFromMap(jsonEncode(response.data));
     return body;
   }

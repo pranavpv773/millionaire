@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/get_utils.dart';
 import 'package:OWPM/utils/colors.dart';
 import 'package:OWPM/utils/size.dart';
 
@@ -10,7 +9,7 @@ import 'helpers.dart';
 void commonBottomSheetDialog(BuildContext context, double max, double initial,
     double min, Widget child) {
   showModalBottomSheet(
-    context: context, backgroundColor: AppColors.white,
+    context: context, backgroundColor: AppColors.primary,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(20),
@@ -49,8 +48,6 @@ errorBottomSheetDialogs({
   bool isDismissible = true,
   bool enableDrag = true,
 }) {
-  var brightness = MediaQuery.of(context).platformBrightness;
-  bool isDarkMode = brightness == Brightness.dark;
   showModalBottomSheet(
     isDismissible: isDismissible,
     enableDrag: enableDrag,

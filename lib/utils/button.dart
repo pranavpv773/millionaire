@@ -47,6 +47,9 @@ class CommonButton extends StatelessWidget {
           onPressed: onPressed,
           clipBehavior: Clip.hardEdge,
           style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
             shadowColor: AppColors.primary.withOpacity(0.9),
             elevation: elevation,
             padding: padding,
@@ -97,15 +100,15 @@ class CommonButtonSecondary extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(15),
                 side: BorderSide(
-                  color: AppColors.secondary,
+                  color: AppColors.white,
                 )),
             elevation: 0,
             padding: padding,
-            backgroundColor: AppColors.white,
-            disabledForegroundColor: AppColors.white,
-            disabledBackgroundColor: AppColors.white,
+            backgroundColor: AppColors.primary,
+            disabledForegroundColor: AppColors.primary,
+            disabledBackgroundColor: AppColors.primary,
           ),
           child: Center(
             child: child,
@@ -143,24 +146,27 @@ class _CommonButtonV1State extends State<CommonButtonV1> {
         style: ElevatedButton.styleFrom(
           shadowColor: AppColors.black,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(32),
+            borderRadius: BorderRadius.circular(15),
           ),
-          backgroundColor: Colors.red.withOpacity(0.7),
+          backgroundColor: AppColors.btnV2,
           elevation: 4.0,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
-              Icons.play_circle_fill_rounded,
+              Icons.play_circle_outline_rounded,
               size: 24,
               color: Colors.white,
             ),
             const SizeBoxV(h8),
             Text(
               widget.label,
-              style: context.textTheme.titleMedium!.copyWith(
+              style: context.textTheme.labelMedium!.copyWith(
                 color: AppColors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.6,
               ),
             ),
           ],
@@ -174,10 +180,12 @@ class PrimaryCommonButton extends StatelessWidget {
   final void Function()? onPressed;
   final String label;
   final Color? backgroundColor;
+  final double? radius;
   const PrimaryCommonButton(
       {super.key,
       required this.onPressed,
       required this.label,
+      this.radius,
       this.backgroundColor});
 
   @override
@@ -188,12 +196,11 @@ class PrimaryCommonButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          shadowColor: AppColors.black,
+          shadowColor: AppColors.btnV2,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(radius ?? 15),
           ),
-          backgroundColor:
-              backgroundColor ?? AppColors.secondary.withOpacity(0.7),
+          backgroundColor: backgroundColor ?? AppColors.btnV2,
           elevation: 4.0,
         ),
         child: Row(

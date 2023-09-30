@@ -1,9 +1,11 @@
+// To parse this JSON data, do
+//
+//     final pastDrawModel = pastDrawModelFromMap(jsonString);
+
 import 'dart:convert';
 
 PastDrawModel pastDrawModelFromMap(String str) =>
     PastDrawModel.fromMap(json.decode(str));
-
-String pastDrawModelToMap(PastDrawModel data) => json.encode(data.toMap());
 
 class PastDrawModel {
   int? statusCode;
@@ -20,34 +22,30 @@ class PastDrawModel {
 
   factory PastDrawModel.fromMap(Map<String, dynamic> json) => PastDrawModel(
         statusCode: json["statusCode"],
-        data: json["data"] == null
-            ? []
-            : List<PastDrawData>.from(
-                json["data"]!.map((x) => PastDrawData.fromMap(x))),
+        data: List<PastDrawData>.from(
+            json["data"].map((x) => PastDrawData.fromMap(x))),
         message: json["message"],
         status: json["status"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "statusCode": statusCode,
-        "data":
-            data == null ? [] : List<dynamic>.from(data!.map((x) => x.toMap())),
-        "message": message,
-        "status": status,
-      };
 }
 
 class PastDrawData {
   String? id;
   String? date;
-  List<int>? winningNumber;
+  List<int>? winningNumbers;
+  int? fiveMatch;
+  int? fourMatch;
+  int? threeMatch;
   String? raffleId;
   int? v;
 
   PastDrawData({
     this.id,
     this.date,
-    this.winningNumber,
+    this.winningNumbers,
+    this.fiveMatch,
+    this.fourMatch,
+    this.threeMatch,
     this.raffleId,
     this.v,
   });
@@ -55,20 +53,11 @@ class PastDrawData {
   factory PastDrawData.fromMap(Map<String, dynamic> json) => PastDrawData(
         id: json["_id"],
         date: json["date"],
-        winningNumber: json["winning_number"] == null
-            ? []
-            : List<int>.from(json["winning_number"]!.map((x) => x)),
+        winningNumbers: List<int>.from(json["winning_numbers"].map((x) => x)),
+        fiveMatch: json["five_match"],
+        fourMatch: json["four_match"],
+        threeMatch: json["three_match"],
         raffleId: json["raffle_id"],
         v: json["__v"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "_id": id,
-        "date": date,
-        "winning_number": winningNumber == null
-            ? []
-            : List<dynamic>.from(winningNumber!.map((x) => x)),
-        "raffle_id": raffleId,
-        "__v": v,
-      };
 }

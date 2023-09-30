@@ -11,7 +11,7 @@ import 'package:OWPM/module/home/model/post_purchase_model.dart';
 import 'package:OWPM/module/home/service/home_services.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:OWPM/module/my_tickets/cubit/ticket_cubit.dart';
-import 'package:OWPM/module/onboarding/model/userModel.dart';
+import 'package:OWPM/module/onboarding/model/user_model.dart';
 import 'package:get/get.dart';
 
 import 'controller/home_controller.dart';
@@ -54,7 +54,7 @@ class HomeCubit extends Cubit<HomeState> with Endpoints {
   getWalletBalance() async {
     emit(state.copyWith(walletBalanceStatus: WalletBalanceStatus.loading));
     try {
-      final list = await services.getWalletBalance();
+      final list = await services.getWalletBalances();
       emit(state.copyWith(
           walletBalanceStatus: WalletBalanceStatus.loaded,
           walletData: list.data));

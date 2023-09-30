@@ -1,3 +1,4 @@
+import 'package:OWPM/module/draws/model/prize_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -15,7 +16,6 @@ class DrawsCubit extends Cubit<DrawsState> with Endpoints {
     emit(state.copyWith(pastDrawStatus: PastDrawStatus.loading));
     try {
       final list = await services.getPastDrawsList();
-      print(list.data![0].winningNumber![0].toString());
       emit(
         state.copyWith(
             pastDrawStatus: PastDrawStatus.loaded, pastDrawList: list.data),
@@ -24,6 +24,21 @@ class DrawsCubit extends Cubit<DrawsState> with Endpoints {
     } on DioError catch (_) {
       emit(state.copyWith(
         pastDrawStatus: PastDrawStatus.error,
+      ));
+    }
+  }
+
+  getPrizeListFn() async {
+    emit(state.copyWith(prizeStatus: PrizeStatus.loading));
+    try {
+      final list = await services.getPrizeList();
+      emit(
+        state.copyWith(prizeStatus: PrizeStatus.loaded, priceList: list.data),
+      );
+      // ignore: deprecated_member_use
+    } on DioError catch (_) {
+      emit(state.copyWith(
+        prizeStatus: PrizeStatus.error,
       ));
     }
   }

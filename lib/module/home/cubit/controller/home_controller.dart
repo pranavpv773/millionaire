@@ -12,7 +12,8 @@ class HomeController extends GetxController {
   RxInt seconds = 0.obs;
   late tz.Location dubai;
   late tz.TZDateTime nextSunday8PM;
-
+  Duration _remainingTime =
+      const Duration(); // The remaining time in the countdown
   RxList numberList = [].obs;
 
   @override
@@ -34,19 +35,35 @@ class HomeController extends GetxController {
 
 //Lottery draw countdown
   void calculateCountdown() {
-    final now = tz.TZDateTime.now(dubai);
-    final nextSunday = tz.TZDateTime(dubai, now.year, now.month,
-        now.day + (DateTime.sunday - now.weekday + 7) % 7, 20);
-    if (now.isAfter(nextSunday)) {
-      nextSunday.add(const Duration(days: 7));
-    }
-    nextSunday8PM = nextSunday;
-    final countdown = nextSunday8PM.difference(now);
+    final now = tz.TZDateTime.now(
+        tz.getLocation('Asia/Dubai')); // Get the current time in Dubai timezone
+    var lastDayOfMonth = tz.TZDateTime(
+        tz.getLocation('Asia/Dubai'),
+        now.year,
+        now.month + 1,
+        1,
+        20); // Set the target time to 8:00 PM on the last day of the month in Dubai timezone
 
-    days.value = countdown.inDays;
-    hours.value = countdown.inHours.remainder(24);
-    minutes.value = countdown.inMinutes.remainder(60);
-    seconds.value = countdown.inSeconds.remainder(60);
+    if (now.isAfter(lastDayOfMonth)) {
+      // If today is after the target time, calculate the target for the next month
+      lastDayOfMonth = lastDayOfMonth.add(const Duration(days: 30));
+    }
+
+    final difference = lastDayOfMonth.difference(now);
+    _remainingTime = difference;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_remainingTime.inSeconds > 0) {
+        _remainingTime = _remainingTime - const Duration(seconds: 1);
+      } else {
+        _timer.cancel();
+      }
+      update();
+    });
+
+    days.value = _remainingTime.inDays;
+    hours.value = _remainingTime.inHours % 24;
+    minutes.value = _remainingTime.inMinutes % 60;
+    seconds.value = _remainingTime.inSeconds % 60;
 
     update();
   }
@@ -55,10 +72,10 @@ class HomeController extends GetxController {
     if (numberList.contains(item)) {
       numberList.remove(item);
     } else {
-      if (numberList.length == 7) {
+      if (numberList.length == 5) {
         Get.snackbar(
           "Warning",
-          "You can only be able to select seven numbers",
+          "You can only be able to select five numbers",
           icon: const Icon(Icons.dangerous_outlined, color: Colors.white),
           snackPosition: SnackPosition.TOP,
         );

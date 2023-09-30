@@ -27,17 +27,19 @@ class CountTimerWidget extends StatelessWidget {
           FittedBox(
             child: Container(
               width: context.width,
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.only(top: 16),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: AppColors.primary),
               child: Center(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Join The Draw Every Sunday At 8PM (UAE) ",
-                      style: context.textTheme.labelMedium!.copyWith(
-                          fontSize: 14,
+                      style: context.textTheme.displayMedium!.copyWith(
+                          fontSize: 16,
+                          letterSpacing: 1,
                           overflow: TextOverflow.ellipsis,
                           color: AppColors.white,
                           fontWeight: FontWeight.w500),
@@ -45,7 +47,7 @@ class CountTimerWidget extends StatelessWidget {
                     const SizeBoxV(h4),
                     Image.asset(
                       AppImages.uaeFlagPath,
-                      width: 18,
+                      width: 20,
                     )
                   ],
                 ),
@@ -55,7 +57,7 @@ class CountTimerWidget extends StatelessWidget {
           const SizeBoxH(h32),
           Obx(
             () => Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TimeCountWidget(
                     count: "${controller.days.value}", text: 'DAYS'),
@@ -73,6 +75,7 @@ class CountTimerWidget extends StatelessWidget {
           ),
           const SizeBoxH(h32),
           CommonButtonV1(
+            bgColor: AppColors.btnV2,
             label: 'Watch videos',
             onPressed: () => launchURLs(state.liveUrl),
           ),
