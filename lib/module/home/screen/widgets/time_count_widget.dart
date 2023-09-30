@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:OWPM/app/app_images/app_images.dart';
 import 'package:OWPM/utils/colors.dart';
-import 'package:OWPM/utils/helpers.dart';
-import 'package:OWPM/utils/size.dart';
 
 class TimeCountWidget extends StatelessWidget {
   final String count;
@@ -12,31 +9,32 @@ class TimeCountWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+    return Container(
+      padding: const EdgeInsets.all(8),
+      width: 60,
+      height: 112,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15), color: AppColors.white),
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Text(
+          count,
+          style: context.textTheme.bodySmall!.copyWith(
+              fontWeight: FontWeight.w700,
+              fontSize: 35,
+              color: AppColors.primary),
+        ),
+        Divider(
+          color: AppColors.primary,
+          thickness: 1.5,
+        ),
         Text(
           text,
-          style: context.textTheme.bodySmall!
-              .copyWith(fontWeight: FontWeight.w600, color: AppColors.black),
+          style: context.textTheme.bodySmall!.copyWith(
+              fontWeight: FontWeight.w400,
+              color: AppColors.primary,
+              letterSpacing: 0.6),
         ),
-        const SizeBoxH(h8),
-        CircleAvatar(
-          radius: 40,
-          backgroundImage: AssetImage(
-            AppImages.blueBallPath,
-          ),
-          foregroundColor: AppColors.transparent,
-          backgroundColor: AppColors.transparent,
-          child: Text(
-            count,
-            style: context.textTheme.labelMedium!.copyWith(
-                color: AppColors.white,
-                fontSize: 26,
-                fontWeight: FontWeight.w600),
-          ),
-        ),
-      ],
+      ]),
     );
   }
 }

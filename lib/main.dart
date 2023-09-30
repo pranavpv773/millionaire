@@ -14,6 +14,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppPref.init();
   Stripe.publishableKey = StripeEnv.stripeKey;
+  await Stripe.instance.applySettings();
   runApp(const MyApp());
 }
 

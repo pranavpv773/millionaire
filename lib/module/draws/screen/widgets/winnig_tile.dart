@@ -28,21 +28,25 @@ class WinningTileWidget extends StatelessWidget {
       elevation: 4,
       borderRadius: BorderRadius.circular(8),
       child: Container(
+        height: 198,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppColors.secondary.withOpacity(0.5))),
+            border: Border.all(color: AppColors.primary)),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
                 AppImages.rewardPath,
-                width: context.width * 0.3,
+                width: context.width * 0.35,
               ),
               Text(
                 price[index],
-                style: context.textTheme.bodyMedium!
-                    .copyWith(color: Colors.grey, fontSize: 16),
+                style: context.textTheme.bodyMedium!.copyWith(
+                  color: AppColors.black.withOpacity(0.75),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
               const SizeBoxH(h4),
               Padding(
@@ -51,9 +55,9 @@ class WinningTileWidget extends StatelessWidget {
                   priceMoney[index],
                   textAlign: TextAlign.center,
                   style: context.textTheme.bodyMedium!.copyWith(
-                      color: AppColors.primary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
+                      color: AppColors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400),
                 ),
               )
             ]),

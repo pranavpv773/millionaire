@@ -49,14 +49,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.1"
-  change_app_package_name:
-    dependency: "direct main"
-    description:
-      name: change_app_package_name
-      sha256: f9ebaf68a4b5a68c581492579bb68273c523ef325fbf9ce2f1b57fb136ad023b
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   characters:
     dependency: transitive
     description:
@@ -97,6 +89,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  country_picker:
+    dependency: "direct main"
+    description:
+      name: country_picker
+      sha256: aa975b41c8052298d227ff7ff58d6eddcad0196127445f72af7456224c9ef104
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.20"
   crypto:
     dependency: transitive
     description:
@@ -187,6 +187,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_screenutil:
+    dependency: "direct main"
+    description:
+      name: flutter_screenutil
+      sha256: "0a122936b450324cbdfd51be0819cc6fcebb093eb65585e9cd92263f7a1a8a39"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.7.0"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -237,14 +245,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.5"
-  getxx:
-    dependency: "direct main"
-    description:
-      name: getxx
-      sha256: "1e7cbde2c42e166063cc26c662978db1308e27c8034a04e7628a9553099ee7f6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   google_fonts:
     dependency: "direct main"
     description:
@@ -586,6 +586,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.3.0"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      sha256: "8db8f55c77f56968681447d3837c10f27a9e861e238a898fda116c7531def979"
+      url: "https://pub.dev"
+    source: hosted
+    version: "21.2.10"
+  syncfusion_flutter_datepicker:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_datepicker
+      sha256: cdc7f12804d609935400262f8d05d9eda8a1f3dbdfef363fb837f09b1f35023d
+      url: "https://pub.dev"
+    source: hosted
+    version: "21.2.3"
   term_glyph:
     dependency: transitive
     description:

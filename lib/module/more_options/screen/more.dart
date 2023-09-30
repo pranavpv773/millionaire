@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:OWPM/app/app_images/app_images.dart';
 import 'package:OWPM/module/home/cubit/home_cubit_cubit.dart';
 import 'package:OWPM/utils/colors.dart';
 import 'package:OWPM/utils/dialogs.dart';
 import 'package:OWPM/utils/helpers.dart';
 import 'package:OWPM/utils/routes/app_routes.dart';
-import 'package:OWPM/utils/shimmers.dart';
 import 'package:OWPM/utils/size.dart';
 
 import 'widgets/logout_child.dart';
@@ -24,8 +22,8 @@ class MoreScreen extends StatelessWidget {
   final List moreOptionIcons = [
     // Icons.wallet_rounded,
     Icons.info_rounded,
-    Icons.assignment_rounded,
-    Icons.privacy_tip_rounded,
+    Icons.description_outlined,
+    Icons.privacy_tip_outlined,
     Icons.logout_rounded
   ];
   @override
@@ -35,33 +33,40 @@ class MoreScreen extends StatelessWidget {
           body: Column(
         children: [
           Container(
+            height: context.height * 0.3,
             color: AppColors.primary,
             width: context.width,
             padding: const EdgeInsets.all(16),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizeBoxH(40),
-                Container(
-                  height: 60,
-                  width: 60,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      image: DecorationImage(
-                          image: AssetImage(AppImages.avatharPath))),
+                CircleAvatar(
+                  backgroundColor: AppColors.white,
+                  radius: 46,
+                  child: Image.asset(
+                    'asset/v2/avathar.png',
+                    width: 36,
+                    color: AppColors.black,
+                  ),
                 ),
-                const SizeBoxH(h8),
-                state.userModelStatus == UserModelStatus.loading
-                    ? SizedBox(
-                        height: 26,
-                        child: ShimmerText(height: 26),
-                      )
-                    : Text(
-                        state.userModelStatus == UserModelStatus.error
-                            ? ''
-                            : "${state.userModel.data!.firstName.toString()} ${state.userModel.data!.lastName.toString()}",
-                        style: context.textTheme.displayMedium!
-                            .copyWith(color: AppColors.white),
-                      ),
+                const SizeBoxH(h10),
+                // state.userModelStatus == UserModelStatus.loading
+                //     ? SizedBox(
+                //         height: 26,
+                //         child: ShimmerText(height: 26),
+                //       )
+                //     :
+                Text(
+                  'Pranav',
+                  // state.userModelStatus == UserModelStatus.error
+                  //     ? ''
+                  //     : "${state.userModel.data!.firstName.toString()} ${state.userModel.data!.lastName.toString()}",
+                  style: context.textTheme.displayMedium!.copyWith(
+                      color: AppColors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400),
+                ),
               ],
             ),
           ),
@@ -80,8 +85,7 @@ class MoreScreen extends StatelessWidget {
                   child: Container(
                     height: 70,
                     decoration: BoxDecoration(
-                        border:
-                            Border.all(color: AppColors.grey.withOpacity(0.2)),
+                        border: Border.all(color: AppColors.greyV2),
                         borderRadius: BorderRadius.circular(8),
                         color: AppColors.white),
                     child: Center(
@@ -92,17 +96,17 @@ class MoreScreen extends StatelessWidget {
                           size: 24,
                           color: index == 4
                               ? Colors.red.withOpacity(0.7)
-                              : AppColors.primary.withOpacity(0.7),
+                              : AppColors.greyV2,
                         ),
                         title: Text(
                           moreOption[index],
                           style: context.textTheme.titleMedium!
                               .copyWith(color: AppColors.grey, fontSize: 16),
                         ),
-                        trailing: Icon(
+                        trailing: const Icon(
                           Icons.arrow_forward_ios_rounded,
                           size: 24,
-                          color: AppColors.secondary.withOpacity(0.7),
+                          color: Color(0xff679436),
                         ),
                         onTap: () {
                           if (index == 0) {

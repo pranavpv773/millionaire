@@ -1,3 +1,4 @@
+import 'package:OWPM/module/claim/cubit/claim_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:OWPM/module/draws/cubit/draws_cubit.dart';
 import 'package:OWPM/module/global_screen/cubit/global_screen_cubit.dart';
@@ -20,5 +21,8 @@ var providers = [
   ),
   BlocProvider<TicketCubit>(
     create: (context) => TicketCubit(),
+  ),
+  BlocProvider<ClaimCubit>(
+    create: (context) => ClaimCubit(),
   ),
 ];

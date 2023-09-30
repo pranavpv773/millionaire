@@ -1,6 +1,6 @@
 class AppImages {
   static String logoPath = 'asset/logos/logo.png';
-  static String rewardPath = 'asset/cash.png';
+  static String rewardPath = 'asset/v2/money.png';
   static String coinPath = "asset/coin.png";
   static String emptyPath = 'asset/empty_result.png';
   static String noInternetPath = 'asset/no_internet.png';

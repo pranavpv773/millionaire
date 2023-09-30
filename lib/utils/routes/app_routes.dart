@@ -8,4 +8,8 @@ class AppRoutes {
   static const noInternetScreen = '/noInternetScreen';
   static const privacyPolicyScreen = '/privacyPolicy';
   static const selectNumberScreen = '/selectNumberScreen';
+  static const signUpScreen = '/signUpScreen';
+  static const splashSecondScreen = '/splashSecondScreen';
+  static const otpScreen = '/otpScreen';
+  static const paymentSheetScreen = '/paymentSheetScreen';
 }

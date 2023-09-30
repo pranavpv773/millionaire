@@ -16,13 +16,24 @@ enum PastDrawStatus {
   error,
 }
 
+enum PrizeStatus {
+  initial,
+  loading,
+  loaded,
+  error,
+}
+
 class DrawsState extends Equatable {
   final WinningStatus winningStatus;
   final PastDrawStatus pastDrawStatus;
   final List<PastDrawData> pastDrawList;
+  final List<PrizeData> priceList;
+  final PrizeStatus prizeStatus;
   final int pastDrawLength;
   final String seePastDraw;
   const DrawsState({
+    required this.priceList,
+    required this.prizeStatus,
     required this.winningStatus,
     required this.pastDrawLength,
     required this.seePastDraw,
@@ -37,6 +48,8 @@ class DrawsState extends Equatable {
       seePastDraw: 'See all',
       pastDrawList: [],
       pastDrawStatus: PastDrawStatus.initial,
+      priceList: [],
+      prizeStatus: PrizeStatus.initial,
     );
   }
 
@@ -46,6 +59,8 @@ class DrawsState extends Equatable {
     String? seePastDraw,
     List<PastDrawData>? pastDrawList,
     PastDrawStatus? pastDrawStatus,
+    List<PrizeData>? priceList,
+    PrizeStatus? prizeStatus,
   }) {
     return DrawsState(
       seePastDraw: seePastDraw ?? this.seePastDraw,
@@ -53,6 +68,8 @@ class DrawsState extends Equatable {
       pastDrawLength: pastDrawLength ?? this.pastDrawLength,
       pastDrawList: pastDrawList ?? this.pastDrawList,
       pastDrawStatus: pastDrawStatus ?? this.pastDrawStatus,
+      priceList: priceList ?? this.priceList,
+      prizeStatus: prizeStatus ?? this.prizeStatus,
     );
   }
 
@@ -64,6 +81,8 @@ class DrawsState extends Equatable {
       seePastDraw,
       pastDrawStatus,
       pastDrawList,
+      priceList,
+      prizeStatus,
     ];
   }
 }

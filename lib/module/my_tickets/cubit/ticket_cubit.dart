@@ -16,6 +16,7 @@ class TicketCubit extends Cubit<TicketState> with Endpoints {
     emit(state.copyWith(myticketStatus: MyTicketStatus.loading));
     try {
       final list = await services.myTicketApiService();
+      print("LIST ${list.data}");
       emit(
         state.copyWith(
             myticketStatus: MyTicketStatus.loaded, myTickets: list.data),

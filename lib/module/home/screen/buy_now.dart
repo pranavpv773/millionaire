@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:OWPM/module/home/cubit/controller/home_controller.dart';
 import 'package:OWPM/utils/routes/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -39,102 +41,101 @@ class _BuyNowScreenState extends State<BuyNowScreen> {
         fontSize: 20,
         wordSpacing: 0.10,
         letterSpacing: 0.6);
-    var labelStyle = context.textTheme.labelMedium!.copyWith(
-        color: AppColors.black,
-        fontWeight: FontWeight.w400,
-        fontSize: 14,
-        wordSpacing: 0.10,
-        letterSpacing: 0.6);
+    var labelStyle = context.textTheme.bodySmall!.copyWith(
+      color: AppColors.black,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0.2,
+      fontSize: 14,
+    );
     return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-      return CommonScaffoldWithAppbar(
-        header: 'Buy Now',
+      return CommonScaffold(
+        // header: 'Buy Now',
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 600,
-                width: context.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: AssetImage(
-                      AppImages.greenCertificatePath,
-                    ),
-                    fit: BoxFit.fill,
-                  ),
+          physics: const ScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Green certificate",
+                  style: headerStyle.copyWith(fontSize: 20),
                 ),
-                child: Padding(
-                    padding:
-                        EdgeInsets.fromLTRB(80, context.height * 0.36, 20, 0),
-                    child: Text(
-                      formattedSundayDate,
-                      style: labelStyle.copyWith(fontSize: 12),
-                    )),
-              ),
-              const SizeBoxH(h10),
-              Text(
-                "Green certificate",
-                style: headerStyle,
-              ),
-              const SizeBoxH(h10),
-              Text(
-                "The Green Certificate you purchase is your contribution to the OWPP, OWPM Environmental Green Project.",
-                style: labelStyle,
-              ),
-              const SizeBoxH(h10),
-              Container(
-                width: context.width,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColors.primary),
-                child: Center(
-                  child: Text(
-                    "Each Green Certificate has a unique code which is your entry for the Raffle Draw and the Grand Prize Match 7 Numbers Draw. ",
-                    style: context.textTheme.bodyMedium!.copyWith(
-                        color: AppColors.white,
-                        wordSpacing: 0.10,
-                        letterSpacing: 0.6),
-                  ),
+                const SizeBoxH(h10),
+                Text(
+                  "The Green Certificate you purchase is your contribution to the OWPP, OWPM Environmental Green Project.",
+                  style: labelStyle,
                 ),
-              ),
-              const SizeBoxH(h10),
-              Text(
-                "If you buy one Green Certificate, you will have one entry to both draws. However, you will have two or more entries in the raffle draw if you buy two or more - and two or three more chances to win! ",
-                style: labelStyle,
-              ),
-              const SizeBoxH(h10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 25,
-                    width: 25,
-                    child: Center(
-                      child: Image.asset(
-                        AppImages.coinPath,
-                        width: context.width / 20,
+                Container(
+                  height: 550,
+                  width: context.width,
+                  decoration: BoxDecoration(
+                    //borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: AssetImage(
+                        AppImages.greenCertificatePath,
                       ),
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
-                  Text(
-                    " 20 Per Green Certificate",
-                    style: headerStyle,
+                  child: Stack(
+                    children: [
+                      Positioned(
+                          top: 258,
+                          left: 90,
+                          child: Text(
+                            formattedSundayDate,
+                            style: labelStyle.copyWith(fontSize: 12),
+                          )),
+                    ],
                   ),
-                ],
-              ),
-              const SizeBoxH(h10),
-              PrimaryCommonButton(
-                onPressed: () {
-                  controller.clearNumberList();
-                  Get.toNamed(AppRoutes.selectNumberScreen);
-                },
-                label: 'SELECT NUMBER',
-              ),
-            ],
+                ),
+                const SizeBoxH(h10),
+                Container(
+                  width: context.width,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: AppColors.greenV2),
+                  child: Center(
+                    child: Text(
+                      "Each Green Certificate has a unique code which is your entry for the Raffle Draw and the Grand Prize Match 5 Numbers Draw. ",
+                      style: context.textTheme.bodySmall!.copyWith(
+                          color: AppColors.white,
+                          fontSize: 14,
+                          letterSpacing: 0.6),
+                    ),
+                  ),
+                ),
+                const SizeBoxH(h10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Text(
+                    "If you buy one Green Certificate, you will have one entry to both draws. However, you will have two or more entries in the raffle draw if you buy two or more - and two or three more chances to win! ",
+                    style: labelStyle,
+                  ),
+                ),
+                const SizeBoxH(h10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Text(
+                    r"$ 10 Per Green Certificate",
+                    style: context.textTheme.displayMedium!
+                        .copyWith(fontSize: 14, fontWeight: FontWeight.w700),
+                  ),
+                ),
+                const SizeBoxH(h15),
+                PrimaryCommonButton(
+                  onPressed: () {
+                    controller.clearNumberList();
+                    Get.toNamed(AppRoutes.selectNumberScreen);
+                  },
+                  label: 'SELECT NUMBER',
+                ),
+                const SizeBoxH(h15),
+              ],
+            ),
           ),
         ),
       );

@@ -1,10 +1,13 @@
 import 'package:OWPM/module/global_screen/screen/global_screen.dart';
 import 'package:OWPM/module/home/screen/buy_now.dart';
+import 'package:OWPM/module/home/screen/widgets/payment_screen.dart';
 import 'package:OWPM/module/home/screen/widgets/select_raffle_screen.dart';
 import 'package:OWPM/module/more_options/screen/how_to_use_screen.dart';
 import 'package:OWPM/module/more_options/screen/privacy_policy.dart';
 import 'package:OWPM/module/my_tickets/screen/tickets.dart';
 import 'package:OWPM/module/onboarding/screens/login_screen.dart';
+import 'package:OWPM/module/onboarding/screens/otp_screen.dart';
+import 'package:OWPM/module/onboarding/screens/sign_up_screen.dart';
 import 'package:OWPM/module/splash/screens/no_internet/no_internet.dart';
 import 'package:OWPM/module/splash/screens/splash_screen.dart';
 import 'package:OWPM/utils/apppref.dart';
@@ -25,6 +28,8 @@ class RouteGenerator {
         return AppPref.userToken != ''
             ? pagetransition(settings, const Landing())
             : pagetransition(settings, const LoginScreen());
+      case AppRoutes.otpScreen:
+        return pagetransition(settings, const OtpScreen());
       case AppRoutes.landingScreen:
         return pagetransition(settings, const Landing());
       case AppRoutes.ticketScreen:
@@ -38,6 +43,10 @@ class RouteGenerator {
         return pagetransition(settings, const SelectRaffleIdScreen());
       case AppRoutes.buynowScreen:
         return pagetransition(settings, const BuyNowScreen());
+      case AppRoutes.signUpScreen:
+        return pagetransition(settings, const SignUpScreen());
+      case AppRoutes.paymentSheetScreen:
+        return pagetransition(settings, const PaymentSheetScreen());
       case AppRoutes.privacyPolicyScreen:
         if (args is Map) {
           return pagetransition(settings, const WebViewXPage());

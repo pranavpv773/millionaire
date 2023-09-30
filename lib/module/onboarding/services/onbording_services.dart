@@ -12,4 +12,26 @@ class OnbaordingServices extends Endpoints {
     final body = onBoardingModelFromMap(jsonEncode(response.data));
     return body;
   }
+
+  Future signUpOnboarding({
+    required dynamic data,
+  }) async {
+    final response = await dio.post(
+      onboardSignUpUser,
+      data: data,
+    );
+    final body = response.data;
+    return body;
+  }
+
+  Future verifyOtpOnboarding({
+    required dynamic data,
+  }) async {
+    final response = await dio.post(
+      verifyOtpOnboard,
+      data: data,
+    );
+    final body = response.data;
+    return body;
+  }
 }

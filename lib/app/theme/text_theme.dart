@@ -4,63 +4,63 @@ import 'package:OWPM/utils/colors.dart';
 
 TextTheme textThemeLight() {
   return TextTheme(
-    displayLarge: GoogleFonts.heebo(
+    displayLarge: GoogleFonts.inriaSans(
         height: 1.2,
         fontSize: 34,
         fontWeight: FontWeight.w700,
         fontStyle: FontStyle.normal,
         color: AppColors.black),
-    displayMedium: GoogleFonts.heebo(
+    displayMedium: GoogleFonts.inriaSans(
         fontSize: 24,
         fontWeight: FontWeight.w600,
         fontStyle: FontStyle.normal,
         color: AppColors.black),
-    displaySmall: GoogleFonts.heebo(
+    displaySmall: GoogleFonts.inriaSans(
         fontSize: 16,
         fontWeight: FontWeight.w600,
         fontStyle: FontStyle.normal,
         color: AppColors.black),
-    headlineMedium: GoogleFonts.heebo(
+    headlineMedium: GoogleFonts.inriaSans(
         fontSize: 14,
         fontWeight: FontWeight.w400,
         fontStyle: FontStyle.normal,
         color: AppColors.black),
-    headlineSmall: GoogleFonts.heebo(
+    headlineSmall: GoogleFonts.inriaSans(
         fontSize: 14,
         fontWeight: FontWeight.w600,
         fontStyle: FontStyle.normal,
         color: AppColors.black),
-    bodyLarge: GoogleFonts.heebo(
+    bodyLarge: GoogleFonts.inriaSans(
         fontSize: 16,
         fontWeight: FontWeight.w600,
         fontStyle: FontStyle.normal,
         color: AppColors.black),
-    bodyMedium: GoogleFonts.heebo(
+    bodyMedium: GoogleFonts.inriaSans(
         fontSize: 16,
         fontWeight: FontWeight.w600,
         fontStyle: FontStyle.normal,
         color: AppColors.black),
-    titleMedium: GoogleFonts.heebo(
+    titleMedium: GoogleFonts.inriaSans(
         fontSize: 14,
         fontWeight: FontWeight.w400,
         fontStyle: FontStyle.normal,
         color: AppColors.black),
-    titleSmall: GoogleFonts.heebo(
+    titleSmall: GoogleFonts.inriaSans(
         fontSize: 12,
         fontWeight: FontWeight.w400,
         fontStyle: FontStyle.normal,
         color: AppColors.black),
-    bodySmall: GoogleFonts.heebo(
+    bodySmall: GoogleFonts.inriaSans(
         fontSize: 12,
         fontWeight: FontWeight.w400,
         fontStyle: FontStyle.normal,
         color: AppColors.black),
-    labelLarge: GoogleFonts.heebo(
+    labelLarge: GoogleFonts.inriaSans(
         fontSize: 16,
         fontWeight: FontWeight.w400,
         fontStyle: FontStyle.normal,
         color: AppColors.white),
-    titleLarge: GoogleFonts.heebo(
+    titleLarge: GoogleFonts.inriaSans(
       fontSize: 14,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
